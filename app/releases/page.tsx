@@ -4,7 +4,11 @@ import { loadProductDescriptions, getLatestReleases, githubInventory } from '@/l
 
 const defaultReleaseIcon = 'deploy.png'
 
-let releasesJSX = (products: ProductInventory, releases: ReleaseInventory) => {
+let releasesJSX = async () => {
+  const products = await loadProductDescriptions(githubInventory);
+  const releases = await getLatestReleases(products);
+  releases.sort((a, b) => a.date > b.date ? -1 : 1)
+
   return releases.map((releaseItem) => {
     const productName = releaseItem.productName;
     const product = products[productName];
@@ -22,10 +26,6 @@ let releasesJSX = (products: ProductInventory, releases: ReleaseInventory) => {
 }
 
 export default async function Releases() {
-  const products = await loadProductDescriptions(githubInventory);
-  const releases = await getLatestReleases(products);
-  releases.sort((a, b) => a.date > b.date ? -1 : 1)
-
   return (<>
     <header className="prose mb-4">
       <h1>Releases</h1>
@@ -34,7 +34,7 @@ export default async function Releases() {
       <div>
         <h3 className="text-2xl font-normal mb-4">Scientific Software</h3>
         <div className="grid grid-cols-3">
-          {releasesJSX(products, releases)}
+          {await releasesJSX()}
         </div>
       </div>
     </div>
