@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import FormattedDate from '@/components/formatted-date';
-import { loadProductDescriptions, getLatestReleases, githubInventory } from '@/lib/releases';
+import { loadProductDescriptions, getLatestReleases, ssgInventory } from '@/lib/products';
 
 const defaultReleaseIcon = 'deploy.png'
 
 let releasesJSX = async () => {
-  const products = await loadProductDescriptions(githubInventory);
+  const products = await loadProductDescriptions(ssgInventory);
   const releases = await getLatestReleases(products);
   releases.sort((a, b) => a.date > b.date ? -1 : 1)
 

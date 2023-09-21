@@ -1,0 +1,136 @@
+- name: Aten
+  org: trisyoungs
+  repo: aten
+  imgUrl: https://raw.githubusercontent.com/trisyoungs/aten/master/extra/aten.png
+  description: >-
+    for editing atomic configurations such as those used by, and generated from,
+    [EPSR](https://www.isis.stfc.ac.uk/Pages/Empirical-Potential-Structure-Refinement.aspx).
+- name: Dissolve
+  url: https://projectdissolve.com/
+  org: disorderedmaterials
+  repo: dissolve
+  imgUrl: >-
+    https://raw.githubusercontent.com/disorderedmaterials/dissolve/master/icon/logo.png
+  description: >-
+    for the interrogation of scattering data, typically total neutron scattering data.
+- name: dlputils
+  org: trisyoungs
+  repo: dlputils
+  description: >-
+    for calculation of quantities from, and manipulation of, DL_POLY/xyz
+    trajectories.
+- name: Euphonic
+  org: pace-neutrons
+  repo: Euphonic
+  description: >-
+    for efficient simulation of phonon bandstructures, density of states and
+    inelastic neutron scattering intensities from force constants.
+- name: Fitbenchmarking
+  url: https://fitbenchmarking.github.io/
+  org: fitbenchmarking
+  repo: fitbenchmarking
+  imgUrl: >-
+    https://raw.githubusercontent.com/fitbenchmarking/fitbenchmarking.github.io/master/assets/img/fbmlogo-cir.png
+  description: >-
+    for comparing different minimizers/fitting frameworks.
+- name: GudPy
+  org: disorderedmaterials
+  repo: GudPy
+  description: >-
+    Python-based batch processing and alternative GUI for Gudrun also offering
+    additional functionality unavailable in the Gudrun Java GUI
+- name: Gudrun
+  org: disorderedmaterials
+  repo: Gudrun
+  description: >-
+    for reducing data from neutron and x-ray scattering experiments.
+- name: HOGBEN
+  org: jfkcooper
+  repo: HOGBEN
+  description: >-
+    for optimising the design of a wide range of reflectometry experiments.
+- name: Herbert
+  org: pace-neutrons
+  repo: Herbert
+  imgUrl: >-
+    https://raw.githubusercontent.com/pace-neutrons/Horace/master/documentation/150px-Quintus_Horatius_Flaccus.jpg
+  description: >-
+    a collection of utilities for visualisation and analysis of neutron
+    spectroscopy data, providing low-level data manipulation routines Horace.
+- name: Horace
+  org: pace-neutrons
+  repo: Horace
+  imgUrl: >-
+    https://raw.githubusercontent.com/pace-neutrons/Horace/master/documentation/150px-Quintus_Horatius_Flaccus.jpg
+  description: >-
+    for the visualisation and analysis of large datasets from time-of-flight
+    neutron inelastic scattering spectrometers.
+- name: Mantid
+  url: https://www.mantidproject.org
+  org: mantidproject
+  repo: mantid
+  imgUrl: >-
+    https://raw.githubusercontent.com/mantidproject/mantid/main/images/Mantid_Logo_Transparent.png
+  description: >-
+    for processing, particularly reducing, materials-science data.
+- name: Mantid Imaging
+  org: mantidproject
+  repo: mantidimaging
+  description: >-
+    provides a graphical toolkit for neutron imaging.
+- name: McPhase
+  url: http://mcphase.de/
+  description: >-
+    for the calculation of magnetic properties.
+- name: MDANSE
+  url: https://www.isis.stfc.ac.uk/Pages/MDANSEproject.aspx
+  description: >-
+    for computing neutron observables from molecular dynamics (MD) trajectories
+    that can be directly compared with neutron scattering experiments,
+    particularly inelastic and quasi-elastic neutron scattering spectroscopies.
+- name: MDMC
+  url: https://github.com/MDMCProject
+  description: >-
+    for automating the typical workflow of researchers that create atomistic/microscopic
+    models (via molecular dynamics, MD, simulations) and compare them with experimental
+    data (mostly from neutrons scattering especially QENS).
+- name: MuSSIC
+  org: disorderedmaterials
+  repo: MuSSIC
+  imgUrl: >-
+    https://raw.githubusercontent.com/disorderedmaterials/MuSSIC/master/logo/MuSSIC_logo.png
+  description: >-
+    for calculating neutron-weighted structure factors from coarse-grained
+    simulation trajectories.
+- name: RAMP
+  org: gcassella
+  repo: RAMP
+  description: >-
+    a Monte Carlo raytracing package for the simulation of neutron instrumentation.
+- name: RasCAL
+  org: arwelHughes
+  repo: RasCAL_2019
+  description: >-
+    for analysing data collected on ISIS reflectometry beamlines.
+- name: SasView
+  org: SasView
+  repo: sasview
+  imgUrl: https://www.sasview.org/img/sasview_logo.png
+  description: >-
+    for the analysis of small angle scattering data.
+- name: SpinW
+  org: spinw
+  repo: SpinW
+  imgUrl: https://spinw.org/img/spinw3_header.png
+  description: >-
+    to plot and numerically simulate magnetic structures and excitations of given
+    spin Hamiltonian using classical Monte Carlo simulation and linear spin wave
+    theory.
+- name: SScanSS-2
+  org: ISISNeutronMuon
+  repo: SScanSS-2
+  imgUrl: >-
+    https://raw.githubusercontent.com/ISISNeutronMuon/SScanSS-2/8c90126ea35ab49228a97ba90721a89db2d80257/static/images/logo.png
+  description: >-
+     for planning, visualising, and setting-up strain scanning experiments on
+     engineering beam-line instruments.

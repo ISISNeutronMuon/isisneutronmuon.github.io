@@ -2,10 +2,6 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import { join } from 'path'
 
-import remarkParse from 'remark-parse'
-import remarkHtml from 'remark-html'
-import { unified } from 'unified'
-
 const postsDirectory = join(process.cwd(), 'app', 'blog', '_posts')
 
 type Post = {
@@ -49,10 +45,4 @@ export function mdFullPath(slug: string) {
     realSlug: realSlug,
     fullPath: join(postsDirectory, `${realSlug}.md`)
   }
-}
-
-export async function markdownToHtml(markdown: string) {
-  // @ts-expect-error: unknown node.
-  const result = await unified().use(remarkParse).use(remarkHtml).process(markdown)
-  return result.toString()
 }

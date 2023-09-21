@@ -1,31 +1,49 @@
 import fs from 'fs'
 import { join } from 'path'
-import yaml from 'js-yaml'
-
 import { Octokit } from "@octokit/rest";
 import { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods';
+import yaml from 'js-yaml'
 
 type GetLatestReleaseResponse = RestEndpointMethodTypes["repos"]["getLatestRelease"]["response"];
 
-const releasesDataDirectory = join(process.cwd(), 'data', 'releases')
+const productsDataDirectory = join(process.cwd(), 'data', 'products')
 const userAgent = 'isisneutronmuon.github.io'
 const octokit = new Octokit({
   userAgent: userAgent,
   auth: process.env.GITHUB_TOKEN || ''
 });
+const githubRepoUrl = (org: string, repo: string) => { return `https://github.com/${org}/${repo}` }
 
-export const githubInventory = `${releasesDataDirectory}/github.yml`
+export const ssgInventory = `${productsDataDirectory}/ssg.yml`
 
 export async function loadProductDescriptions(yamlFullPath: string) {
   const fileContents = fs.readFileSync(yamlFullPath, 'utf8');
   // todo: needs validation!
-  const descriptions = yaml.load(fileContents) as ProductDescription[];
+  const rawProducts = yaml.load(fileContents) as ProductDescription[];
   // convert to object indexed on productName for easy lookup
+  // and fill in anythin
   const inventory: ProductInventory = {};
-  for (let product of descriptions) {
-    inventory[product.name] = product;
+  for (let rawProduct of rawProducts) {
+    inventory[rawProduct.name] = finalize(rawProduct);
   }
   return inventory;
+}
+
+// Take a product and fill in any missing details
+function finalize(product: ProductDescription) {
+  // If no url is supplied the org/repo is required and
+  // this will form the url
+  if (!product.url) {
+    let missing: string[] = []
+    if (!product.org) missing.push('org');
+    if (!product.repo) missing.push('repo');
+    if (missing.length > 0) {
+      throw Error(`${missing} are missing from ${product.name} block`);
+    }
+    // @ts-expect-error: product.{org,repo} have been checked and are not null
+    product.url = githubRepoUrl(product.org, product.repo);
+  }
+  return product;
 }
 
 export async function getLatestReleases(products: ProductInventory) {
@@ -71,11 +89,3 @@ function validateReleaseResponse(response: GetLatestReleaseResponse) {
 
   return response
 }
-
-// async function main() {
-//   const products = await loadProductInventory(githubInventory);
-//   const releases = await getLatestReleases(products);
-//   console.log(releases)
-// }
-
-// await main()

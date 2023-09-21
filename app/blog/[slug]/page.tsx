@@ -1,5 +1,6 @@
-import FormattedDate from "@/components/formatted-date"
-import { getAllPosts, getPostBySlug, markdownToHtml } from "@/lib/blog"
+import FormattedDate from "@/components/formatted-date";
+import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import { markdownToHtml } from "@/lib/markdown";
 
 type Params = {
   params: {
@@ -19,7 +20,7 @@ export async function generateStaticParams() {
 
 export default async function BlogPost({ params }: Params) {
   const post = getPostBySlug(params.slug)
-  const content = await markdownToHtml(post.content || '')
+  const html = markdownToHtml(post.content || '')
 
   return (
     <article className="prose">
@@ -30,7 +31,7 @@ export default async function BlogPost({ params }: Params) {
         <h1 className="ml-1">{post.title}</h1>
         <hr />
       </div>
-      <div dangerouslySetInnerHTML={{ __html: content.toString() }} />
+      <div dangerouslySetInnerHTML={{ __html: html.toString() }} />
     </article>
   )
 }
