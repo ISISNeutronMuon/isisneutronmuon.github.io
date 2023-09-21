@@ -7,9 +7,10 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    fontFamily: {
-      display: ['Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
-      body: ['Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+    extend: {
+      colors: {
+        'blue-link': 'rgb(9, 105, 218)'
+      }
     }
   },
   plugins: [

@@ -4,8 +4,8 @@
 
 /* Override links from prose */
 .prose :where(a) {
-  @apply text-blue-600 no-underline
+  @apply text-blue-link font-semibold no-underline;
 }
 .prose :where(a):hover {
-  @apply underline
+  @apply underline;
 }
