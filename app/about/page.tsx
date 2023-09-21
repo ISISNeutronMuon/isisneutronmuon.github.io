@@ -1,12 +1,13 @@
-import { Metadata } from "next"
+import MDXContent, { frontmatter } from './about.md'
 
-export const metadata: Metadata = {
-  title: 'About',
-  description: 'Neutrons...',
-}
-
-export default function About() {
-  return (
-    <main><h1 className="text-neutral-600">About</h1></main>
+export default function Page() {
+  return (<>
+    <article className="prose">
+      <header className="mb-8">
+        <h1>{frontmatter.title}</h1>
+      </header>
+      <MDXContent />
+    </article>
+  </>
   )
 }

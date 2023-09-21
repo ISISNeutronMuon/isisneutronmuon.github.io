@@ -1,5 +1,10 @@
-export default function Home() {
-  return (
-    <main><h1 className="text-neutral-600">Home</h1></main>
+import MDXContent from './index.md'
+
+export default function Page() {
+  return (<>
+    <article className="prose">
+      <MDXContent />
+    </article>
+  </>
   )
 }
