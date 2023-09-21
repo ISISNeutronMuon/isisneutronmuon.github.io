@@ -8,13 +8,15 @@ let releasesJSX = (products: ProductInventory, releases: ReleaseInventory) => {
   return releases.map((releaseItem) => {
     const productName = releaseItem.productName;
     const product = products[productName];
-    return <div key={productName} className="prose flex flex-col flex-wrap justify-around text-center border-dotted border-2 mx-1">
+    return <div key={productName} className="prose flex flex-col flex-wrap justify-around text-center border-dotted border-[1px] mx-[1px]">
       <Link href={releaseItem.url}>
-        <img className="m-auto h-auto max-w-[175px] max-h-[150px]"
+        <div className="relative text-center h-[175px]">
+          <img className="absolute inset-0 m-auto h-auto max-w-[175px] max-h-[150px]"
             alt={`${productName} - ${releaseItem.title}`} src={product.imgUrl || `/${defaultReleaseIcon}`} />
+        </div>
       </Link>
       <p className="my-0">{productName}: <Link href={releaseItem.url}>{releaseItem.title}</Link></p>
-      <p className="mt-2 text-sm">Published: <FormattedDate date={releaseItem.date} /></p>
+      <p className="mt-0 text-sm">Published: <FormattedDate date={releaseItem.date} /></p>
     </div>
   });
 }
