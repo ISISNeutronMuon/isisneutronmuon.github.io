@@ -34,7 +34,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "./dist/types/**/*.ts",
-    "app/page.mdx"
+    "app/page.mdx",
+    "app/blog/[slug]"
   ],
   "exclude": [
     "node_modules",
