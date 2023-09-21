@@ -16,7 +16,10 @@ const nextConfig = {
   basePath: '',
   cleanDistDir: true,
   distDir: './dist',
-  output: 'export'
+  output: 'export',
+  images: {
+    unoptimized: true
+  }
 }
 
 export default withMDX(nextConfig)

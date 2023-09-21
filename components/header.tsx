@@ -13,7 +13,10 @@ export default function Header() {
           {SITE_TITLE}
         </Link>
         <nav className="float-right leading-[3.5rem]">
-          <Link className="text-neutral-600" href="/about">About</Link>
+          <ul className="flex space-x-8 list-none">
+            <li><Link className="text-neutral-600" href="/releases">Releases</Link></li>
+            <li><Link className="text-neutral-600" href="/about">About</Link></li>
+          </ul>
         </nav>
       </Container>
     </header>
