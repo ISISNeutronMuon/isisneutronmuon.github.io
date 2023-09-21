@@ -2,7 +2,7 @@ import Link from 'next/link';
 import FormattedDate from '@/components/formatted-date';
 import { loadProductDescriptions, getLatestReleases, githubInventory } from '@/lib/releases';
 
-const defaultReleaseIcon = '/deploy.png'
+const defaultReleaseIcon = 'deploy.png'
 
 let releasesJSX = (products: ProductInventory, releases: ReleaseInventory) => {
   return releases.map((releaseItem) => {
@@ -11,7 +11,7 @@ let releasesJSX = (products: ProductInventory, releases: ReleaseInventory) => {
     return <div key={productName} className="prose flex flex-col flex-wrap justify-around text-center border-dotted border-2 mx-1">
       <Link href={releaseItem.url}>
         <img className="m-auto h-auto max-w-[175px] max-h-[150px]"
-          alt={`${productName} - ${releaseItem.title}`} src={product.imgUrl || defaultReleaseIcon} />
+            alt={`${productName} - ${releaseItem.title}`} src={product.imgUrl || `/${defaultReleaseIcon}`} />
       </Link>
       <p className="my-0">{productName}: <Link href={releaseItem.url}>{releaseItem.title}</Link></p>
       <p className="mt-2 text-sm">Published: <FormattedDate date={releaseItem.date} /></p>
