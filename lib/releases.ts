@@ -46,8 +46,8 @@ async function getLatestRelease(product: ProductDescription) {
     // This could be tidied up with Pick and a typeguard...
     const response = validateReleaseResponse(await octokit.rest.repos.getLatestRelease({ owner: product.org, repo: product.repo }));
     const latestRelease: Release = {
-      // @ts-expect-error: name has been validated to exist
-      title: response.data.name,
+      productName: product.name,
+      title: response.data.name || response.data.tag_name,
       // @ts-expect-error: date has been validated to exist
       date: new Date(response.data.published_at),
       url: response.data.html_url,
