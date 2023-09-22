@@ -9,10 +9,12 @@ It is a [Next.js](https://nextjs.org/) project using:
   [tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin) for styling.
 - [MDX](https://mdxjs.com/) and [remark](https://remark.js.org/) to support Markdown content.
 
-The development version uses a local node server to render the content.
+The [development version](#running-the-development-version) uses a local node
+server to render the content.
 
-The production version is compiled to a static set of pages using Next.js's support
-for [static exports](https://nextjs.org/docs/app/building-your-application/deploying/static-exports).
+The [production version](#building-the-production-version) is compiled to a
+static set of pages using Next.js's support for
+[static exports](https://nextjs.org/docs/app/building-your-application/deploying/static-exports).
 The result requires only a standard webserver to server the content.
 
 ## Set Up
