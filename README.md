@@ -1,34 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# isisneutronmuon.github.io
 
-## Getting Started
+The source for the ISIS Neutron and Muon GitHub pages site.
+The live version can be viewed at <https://martyngigg.github.io/isisneutronmuon-nextjs.github.io>.
 
-First, run the development server:
+It is a [Next.js](https://nextjs.org/) project using:
+
+- [Tailwind CSS](https://tailwindcss.com/) and
+  [tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin) for styling.
+- [MDX](https://mdxjs.com/) and [remark](https://remark.js.org/) to support Markdown content.
+
+The development version uses a local node server to render the content.
+
+The production version is compiled to a static set of pages using Next.js's support
+for [static exports](https://nextjs.org/docs/app/building-your-application/deploying/static-exports).
+The result requires only a standard webserver to server the content.
+
+## Set Up
+
+### I don't have Node.js installed
+
+Will you be working on other Node.js projects?
+
+- If yes, install [node version manager](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-version-manager-to-install-nodejs-and-npm) and use this to install `node` + `npm`
+- If no, install `node` + `npm` using a [provided installer](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm#using-a-node-installer-to-install-nodejs-and-npm)
+
+Once installed confirm you can run `npm` by printing the help:
+
+```bash
+npm -h
+```
+
+### I already have Node.js installed
+
+You're ready to go!
+
+## Install the dependencies
+
+Clone this repository locally and change to the directory of the new clone.
+Install the dependencies specified in the `package.json` with:
+
+```bash
+npm install
+```
+
+## Running the development version
+
+While developing you should run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Once saved, any changes will be instantly reflected in the version presented
+in the browser allowing a fast-feedback loop during developing.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Building the production version
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The production version is served as a set of static pages that do not require
+a running Node.js server. Build the pages with:
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+The results appear in a `dist` subdirectory of the main project.
+These pages can be served with any standard webserver such as `Nginx` or
+`Apache`. Locally they can be checked using Node's own basic webserver:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+serve ./dist
+```
