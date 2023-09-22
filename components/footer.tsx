@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { SITE_TITLE, SITE_DESCRIPTION } from "@/lib/consts"
+import { siteTitle, siteDescription } from "@/lib/consts"
 import { github, twitter } from "@/lib/socials"
 import Container from "./container"
 
@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer className="pt-8 border-t border-solid border-neutral-200 h-card">
       <Container>
-        <h2 className="text-lg mb-4">{SITE_TITLE}</h2>
+        <h2 className="text-lg mb-4">{siteTitle}</h2>
 
         <div className="text-sm text-neutral-400 grid grid-cols-3 leading-relaxed">
           <div>
@@ -33,7 +33,7 @@ export default function Footer() {
           </div>
           <div>{/*-- empty column --*/}</div>
           <div>
-            <p>{SITE_DESCRIPTION}</p>
+            <p>{siteDescription}</p>
           </div>
         </div>
       </Container>

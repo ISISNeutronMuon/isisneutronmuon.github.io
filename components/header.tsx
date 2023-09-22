@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Container from "./container"
-import { SITE_TITLE } from "@/lib/consts"
+import { siteTitle } from "@/lib/consts"
 
 const headerItems = [
   { title: "About", href: "/about" },
@@ -15,7 +15,7 @@ export default function Header() {
     >
       <Container>
         <Link href="/" className="text-neutral-600 text-3xl leading-[3.5rem]">
-          {SITE_TITLE}
+          {siteTitle}
         </Link>
         <nav className="float-right leading-[3.5rem]">
           <ul className="flex space-x-8 list-none">
