@@ -4,10 +4,12 @@ import Container from '@/components/container'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 
+import { SITE_TITLE, SITE_DESCRIPTION } from '@/lib/consts'
+
 export const metadata: Metadata = {
   generator: 'nextjs',
-  title: 'Create Next App',
-  description: 'Software for fans of Neutrons andd Muons',
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
 }
 
 export default function RootLayout({
