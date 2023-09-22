@@ -2,6 +2,11 @@ import Link from 'next/link'
 import Container from "./container"
 import { SITE_TITLE } from "@/lib/consts"
 
+const headerItems = [
+  { title: "About", href: "/about" },
+  { title: "Releases", href: "/releases" }
+];
+
 export default function Header() {
   return (
     <header
@@ -14,8 +19,7 @@ export default function Header() {
         </Link>
         <nav className="float-right leading-[3.5rem]">
           <ul className="flex space-x-8 list-none">
-            <li><Link className="text-neutral-600" href="/releases">Releases</Link></li>
-            <li><Link className="text-neutral-600" href="/about">About</Link></li>
+            {headerItems.map((item) => <li key={item.href} ><Link className="text-neutral-600" href={item.href}>{item.title}</Link></li>)}
           </ul>
         </nav>
       </Container>
