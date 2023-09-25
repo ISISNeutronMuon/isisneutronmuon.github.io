@@ -4,7 +4,8 @@ import { siteTitle } from "@/lib/consts"
 
 const headerItems = [
   { title: "About", href: "/about" },
-  { title: "Releases", href: "/releases" }
+  { title: "Releases", href: "/releases" },
+  { title: "Technology Radar", href: "/technology-radar" }
 ];
 
 export default function Header() {
