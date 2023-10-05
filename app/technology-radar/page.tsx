@@ -2,51 +2,7 @@
 
 import * as d3 from "d3";
 
-const chartConfig: ChartConfig = {
-  sizePx: 896,
-  scale: [-18, 18],
-  axisWidthPx: 20,
-  quadrants: [
-    {
-      title: "Languages & Frameworks",
-      colour: "#84b59c"
-    },
-    {
-      title: "Techniques",
-      colour: "#248ea6"
-    },
-    {
-      title: "Platforms",
-      colour: "#c57b67"
-    },
-    {
-      title: "Tools",
-      colour: "#f2a25c"
-    }
-  ],
-  rings: [
-    {
-      title: "Adopt",
-      radius: 7,
-      colour: "#bababa"
-    },
-    {
-      title: "Trial",
-      radius: 11,
-      colour: "#bababa"
-    },
-    {
-      title: "Assess",
-      radius: 15,
-      colour: "#bababa"
-    },
-    {
-      title: "Hold",
-      radius: 17,
-      colour: "#bababa"
-    }
-  ]
-};
+import { chartConfig, QuadrantConfig, RingConfig } from "./lib/config";
 
 // Define an svg transform with a translate(x y) and rotate(angleDeg)
 type QuadrantTransform = {
@@ -61,6 +17,7 @@ function toPixels(d3ScaleValue: number, d3Scale: d3.ScaleLinear<number, number>)
   return d3Scale(d3ScaleValue) - d3Scale(0);
 }
 
+// Compute the svg path string for an arc using d3
 function arcPath(
   startStopAnglesRad: [number, number],
   radiusPx: number,
@@ -116,7 +73,6 @@ function drawRingLabels(rings: RingConfig[], centre: { x: number, y: number }, q
     const r2 = rings[index].radius;
     labelPositionsX.push(toPixels(r1 + 0.5 * (r2 - r1), xScale));
   }
-
 
   return (
     <g>
