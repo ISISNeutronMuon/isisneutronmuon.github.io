@@ -1,3 +1,4 @@
+import { addBasePath } from 'next/dist/client/add-base-path';
 import Link from 'next/link';
 import FormattedDate from '@/components/formatted-date';
 import { loadProductDescriptions, getLatestReleases, ssgInventory } from '@/lib/products';
@@ -16,7 +17,7 @@ let releasesJSX = async () => {
       <Link href={releaseItem.url}>
         <div className="relative text-center h-[175px]">
           <img className="absolute inset-0 m-auto h-auto max-w-[175px] max-h-[150px]"
-            alt={`${productName} - ${releaseItem.title}`} src={product.imgUrl || `/${defaultReleaseIcon}`} />
+            alt={`${productName} - ${releaseItem.title}`} src={product.imgUrl || addBasePath(`/${defaultReleaseIcon}`)} />
         </div>
       </Link>
       <p className="my-0">{productName}: <Link href={releaseItem.url}>{releaseItem.title}</Link></p>

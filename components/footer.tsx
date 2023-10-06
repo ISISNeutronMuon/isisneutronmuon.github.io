@@ -1,3 +1,4 @@
+import { addBasePath } from "next/dist/client/add-base-path"
 import Link from "next/link"
 import { siteTitle, siteDescription } from "@/lib/consts"
 import { github, twitter } from "@/lib/socials"
@@ -22,7 +23,7 @@ export default function Footer() {
                       href={item.baseurl + item.username}
                     >
                       <svg className="inline-block pr-2 w-6 h-4 fill-neutral-400">
-                        <use xlinkHref={"/social-icons.svg#" + item.id} />
+                        <use xlinkHref={addBasePath(`/social-icons.svg#${item.id}`)} />
                       </svg>
                       <span>{item.username}</span>
                     </Link>
