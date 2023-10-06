@@ -5,12 +5,13 @@ on:
     branches:
       - main
 
-env:
-  PUBLIC_URL: ${{ vars.PUBLIC_URL }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: github-pages
+    env:
+      PUBLIC_URL: ${{ vars.PUBLIC_URL }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -31,7 +32,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         if: github.ref == 'refs/heads/main'
         with:
-          path: dist/${{ env.PUBLIC_URL }}
+          path: dist${{ vars.PUBLIC_URL }}
 
   deploy:
     if: github.ref == 'refs/heads/main'
