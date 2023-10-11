@@ -79,12 +79,12 @@ function drawRingLabels(rings: RingConfig[], centre: { x: number, y: number }, q
       {rings.map((_, ringIndex) => {
         // The <div> is only necessary to silence a react warning that each child requires
         // a unique key attribute
-        return (<div key={`labels-${rings[ringIndex].title}`}>
+        return (<g key={`labels-${rings[ringIndex].title}`}>
           <text textAnchor="middle" y={`${centre.y}`} dy={`${quadrantGapPx / 4}`}
             x={centre.x + 0.5 * quadrantGapPx + labelPositionsX[ringIndex]}>{rings[ringIndex].title}</text>
           <text textAnchor="middle" y={`${centre.y}`} dy={`${quadrantGapPx / 4}`}
             x={centre.x - 0.5 * quadrantGapPx - labelPositionsX[ringIndex]}>{rings[ringIndex].title}</text>
-        </div>)
+        </g>)
       })}
     </g>
   )
