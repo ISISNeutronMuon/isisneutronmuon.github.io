@@ -11,9 +11,9 @@ export function loadRadarContent(development: boolean = false): Radar {
 
   const { quadrants, incorrectCategories } = addBlipsTo(emptyQuadrants, blips);
   if (incorrectCategories.length > 0) {
-    let helpMessages = ["The following blips have unknown category assignments:"];
+    let helpMessages = ["The following blips have unknown quadrant assignments:"];
     for (const blip of incorrectCategories) {
-      helpMessages.push(`  - ${blip.title}: ${blip.category}`)
+      helpMessages.push(`  - ${blip.title}: ${blip.quadrantTitle}`)
     }
     console.error(helpMessages.join("\n"))
   }
@@ -39,9 +39,9 @@ function loadBlipContent(development: boolean): Blip[] {
 function addBlipsTo(quadrants: QuadrantMap, blips: Blip[]): { quadrants: QuadrantMap, incorrectCategories: Blip[] } {
   let incorrectCategories: Blip[] = [];
   for (let blip of blips) {
-    if (quadrants.has(blip.category)) {
+    if (quadrants.has(blip.quadrantTitle)) {
       // @ts-ignore
-      quadrants.get(blip.category)?.addBlip(blip);
+      quadrants.get(blip.quadrantTitle)?.addBlip(blip);
     }
     else {
       incorrectCategories.push(blip);

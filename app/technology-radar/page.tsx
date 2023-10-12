@@ -1,15 +1,15 @@
-'use client'
+//'use client'
 import * as d3 from "d3";
 import Link from "next/link";
 
-import { chartConfig, QuadrantConfig, RingConfig } from "./lib/config";
+import { chartConfig, RingConfig } from "./lib/config";
+import { Radar } from "./lib/models/radar";
+import { Blip } from "./lib/models/blip";
+import { loadRadarContent } from "./lib/io"
 
-// Define an svg transform with a translate(x y) and rotate(angleDeg)
-type QuadrantTransform = {
-  x: number,
-  y: number,
-  angleDeg: number
-};
+import { Quadrant as QuadrantView } from "./lib/view/quadrant";
+import { BlipPositionGenerator } from "./lib/util/blipPositionGenerator";
+import { Quadrant } from "./lib/models/quadrant";
 
 export default function TechnologyRadar() {
   // Create a d3 scale to map from pixels in the browser to the point scale defined
@@ -20,18 +20,21 @@ export default function TechnologyRadar() {
     .scaleLinear()
     .domain(chartConfig.scale)
     .range([0, size]);
-  const axisWidthPx = chartConfig.axisWidthPx;
+  const axisWidthPx = toPixels(chartConfig.axisWidth, xScale);
   const axisWidthHalfPx = axisWidthPx / 2.;
-  const quadrantTransforms: QuadrantTransform[] = [
-    { x: halfWidth + axisWidthHalfPx, y: halfWidth - axisWidthHalfPx, angleDeg: 0 },
-    { x: halfWidth + axisWidthHalfPx, y: halfWidth + axisWidthHalfPx, angleDeg: 90 },
-    { x: halfWidth - axisWidthHalfPx, y: halfWidth + axisWidthHalfPx, angleDeg: 180 },
-    { x: halfWidth - axisWidthHalfPx, y: halfWidth - axisWidthHalfPx, angleDeg: 270 }
+
+  const quadrants: QuadrantView[] = [
+    new QuadrantView(chartConfig.quadrants[0], { x: halfWidth - axisWidthHalfPx, y: halfWidth - axisWidthHalfPx }, 'top-left'),
+    new QuadrantView(chartConfig.quadrants[1], { x: halfWidth + axisWidthHalfPx, y: halfWidth - axisWidthHalfPx }, 'top-right'),
+    new QuadrantView(chartConfig.quadrants[2], { x: halfWidth + axisWidthHalfPx, y: halfWidth + axisWidthHalfPx }, 'bottom-right'),
+    new QuadrantView(chartConfig.quadrants[3], { x: halfWidth - axisWidthHalfPx, y: halfWidth + axisWidthHalfPx }, 'bottom-left'),
   ];
+
+  const radarModel: Radar = loadRadarContent(true);
 
   return (
     <svg width={size} height={size} xmlns="http://www.w3.org/2000/svg">
-      {drawQuadrants(quadrantTransforms, chartConfig.quadrants, chartConfig.rings, xScale)}
+      {drawQuadrants(quadrants, chartConfig.rings, chartConfig.blips.radius, xScale)}
       {drawRingLabels(chartConfig.rings, { x: halfWidth, y: halfWidth }, axisWidthPx, xScale)}
     </svg>
   )
@@ -64,46 +67,34 @@ function arcPath(
   );
 }
 
-function drawQuadrants(quadrantTransforms: QuadrantTransform[], quadrantConfigs: QuadrantConfig[], rings: RingConfig[], xScale: d3.ScaleLinear<number, number>) {
-  return quadrantTransforms.map((quadrantTransform, index) =>
-    drawQuadrant(quadrantTransform, quadrantConfigs[index], rings, xScale))
+function drawQuadrants(quadrants: QuadrantView[], rings: RingConfig[], blipRadius: number,
+  xScale: d3.ScaleLinear<number, number>) {
+  return quadrants.map((quadrant) =>
+    drawQuadrant(quadrant, rings, blipRadius, xScale))
 }
 
-function drawQuadrant(quadrantTransform: QuadrantTransform, quadrantConfig: QuadrantConfig, rings: RingConfig[], xScale: d3.ScaleLinear<number, number>) {
-  // Draws an arc segment from 0->90 degs then applies svg transforms to place it in the
-  // final position in the radar as defined by the QuadrantTransfroms
-  const startStopAnglesRad: [number, number] = [0, Math.PI / 2];
-  const lineThicknessPx = 1;
+function drawQuadrant(quadrant: QuadrantView, rings: RingConfig[], blipRadius: number,
+  xScale: d3.ScaleLinear<number, number>) {
+  const config = quadrant.config;
+  const centre = quadrant.centre;
   const outerRadiusPx = toPixels(rings[rings.length - 1].radius, xScale);
-
-  // Determine where the label should be written based on the rotation angle along
-  // with determining the origin of a rectangle drawn underneath the quadrant so that the
-  // whole area is clickable.
-  const { quadrantLabelPos, linkRectOrigin } = (() => {
-    if (quadrantTransform.angleDeg < 90)
-      return { quadrantLabelPos: { x: outerRadiusPx, y: -outerRadiusPx, anchor: "end" }, linkRectOrigin: { x: 0, y: -outerRadiusPx } }
-    else if (quadrantTransform.angleDeg < 180)
-      return { quadrantLabelPos: { x: outerRadiusPx, y: outerRadiusPx, anchor: "end" }, linkRectOrigin: { x: 0, y: 0 } }
-    else if (quadrantTransform.angleDeg < 270)
-      return { quadrantLabelPos: { x: -outerRadiusPx, y: outerRadiusPx, anchor: "start" }, linkRectOrigin: { x: -outerRadiusPx, y: 0 } }
-    else
-      return { quadrantLabelPos: { x: -outerRadiusPx, y: -outerRadiusPx, anchor: "start" }, linkRectOrigin: { x: -outerRadiusPx, y: -outerRadiusPx } }
-  })();
+  const quadrantLabelPos = quadrant.labelPosition(outerRadiusPx);
+  const linkRectOrigin = quadrant.linkRectOrigin(outerRadiusPx);
+  const lineThicknessPx = 1;
 
 
   return (
-    <Link href={`/technology-radar/${quadrantConfig.id}`} key={`quadrant-${quadrantConfig.id}`} id={`quadrant-${quadrantConfig.id}`}>
-      <g transform={`translate(${quadrantTransform.x} ${quadrantTransform.y})`}>
+    <Link href={`/technology-radar/${config.id}`} key={`quadrant-${config.id}`} id={`quadrant-${config.id}`}>
+      <g transform={`translate(${centre.x} ${centre.y})`}>
         <rect x={linkRectOrigin.x} y={linkRectOrigin.y} width={outerRadiusPx} height={outerRadiusPx} fill="white" z="1"></rect>
-        <text x={quadrantLabelPos.x} y={quadrantLabelPos.y} textAnchor={quadrantLabelPos.anchor}>{quadrantConfig.title.toUpperCase()}</text>
-        <g transform={`rotate(${quadrantTransform.angleDeg})`}>
-          {rings.map((ring, ringIndex) =>
-            <path key={`quadrant-ring-${ringIndex}`} fill={ring.colour}
-              d={arcPath(startStopAnglesRad, toPixels(rings[ringIndex].radius, xScale), lineThicknessPx)} />)}
-          {<line x1="0" x2={outerRadiusPx} y1="0" y2="0" stroke={rings[0].colour} />}
-          {<line x1="0" x2="0" y1="0" y2={-outerRadiusPx} stroke={rings[0].colour} />}
-        </g>
-      </g >
+        <text x={quadrantLabelPos.x} y={quadrantLabelPos.y} textAnchor={quadrantLabelPos.anchor} fill={config.colour}>{config.title.toUpperCase()}</text>
+        {rings.map((ring, ringIndex) =>
+          <path key={`quadrant-ring-${ringIndex}`} fill={config.colour}
+            d={arcPath(quadrant.startEndAngles, toPixels(ring.radius, xScale), lineThicknessPx)} />)}
+        {<line x1="0" x2={quadrant.radialBasis.x * outerRadiusPx} y1="0" y2="0" stroke={config.colour} />}
+        {<line x1="0" x2="0" y1="0" y2={quadrant.radialBasis.y * outerRadiusPx} stroke={config.colour} />}
+        {drawBlips(quadrant, chartConfig.rings, blipRadius, xScale)}
+      </g>
     </Link>)
 }
 
@@ -133,4 +124,34 @@ function drawRingLabels(rings: RingConfig[], centre: { x: number, y: number }, q
       })}
     </g>
   )
+}
+
+function drawBlips(quadrant: QuadrantView, rings: RingConfig[], blipRadius: number,
+  xScale: d3.ScaleLinear<number, number>) {
+  const radarModel: Radar = loadRadarContent(true);
+  const quadrantConfig = quadrant.config;
+  const quadrantModel = radarModel.quadrants.get(quadrantConfig.title) as Quadrant;
+
+  let jsx = [];
+  for (let index = 0; index < rings.length; ++index) {
+    const innerRadius = (index == 0) ? 0. : rings[index - 1].radius;
+    const outerRadius = rings[index].radius;
+    const { ringBlips, centres } = distributeBlipsInRing(quadrantModel.blipsInRing(rings[index].title), quadrant, innerRadius, outerRadius, blipRadius);
+    for (let blipIndex = 0; blipIndex < ringBlips.length; ++blipIndex) {
+      jsx.push(
+        <g>
+          <circle cx={toPixels(centres[blipIndex].x, xScale)} cy={toPixels(centres[blipIndex].y, xScale)}
+            r={toPixels(blipRadius, xScale)} fill={quadrantConfig.colour} />
+        </g>
+      );
+    }
+  }
+  return jsx;
+}
+
+// Determine the (x,y) position of a set of blips for a quadrant. The blips are
+// distributed with random positions also taking care that they do not overlap.
+function distributeBlipsInRing(blips: Blip[], quadrant: QuadrantView, innerRadius: number, outerRadius: number, blipRadius: number) {
+  const generator = new BlipPositionGenerator(quadrant.radialBasis, innerRadius, outerRadius, blipRadius);
+  return { ringBlips: blips, centres: generator.generateCentres(blips.length) };
 }

@@ -13,11 +13,15 @@ export class Quadrant {
   }
 
   addBlip(blip: Blip): void {
-    if (blip.category == this.title) {
+    if (blip.quadrantTitle == this.title) {
       this.blips.push(blip);
     } else {
-      throw Error(`Blip category (${blip.category}) does not match quadrant title (${this.title}).`);
+      throw Error(`Blip quadrant (${blip.quadrantTitle}) does not match quadrant title (${this.title}).`);
     }
+  }
+
+  blipsInRing(ringTitle: string): Blip[] {
+    return this.blips.filter((blip) => blip.ring == ringTitle);
   }
 
   private throwIfObjectInvalid() {

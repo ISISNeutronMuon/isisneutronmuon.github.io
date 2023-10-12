@@ -1,11 +1,11 @@
 export class Blip {
   title: string;
-  category: string;
+  quadrantTitle: string;
   ring: string;
 
-  constructor(title: string, category: string, ring: string) {
+  constructor(title: string, quadrantTitle: string, ring: string) {
     this.title = title;
-    this.category = category;
+    this.quadrantTitle = quadrantTitle;
     this.ring = ring;
 
     this.throwIfObjectInvalid();
@@ -20,7 +20,7 @@ export class Blip {
     };
 
     throwIfFieldEmpty("title");
-    throwIfFieldEmpty("category");
+    throwIfFieldEmpty("quadrantTitle");
     throwIfFieldEmpty("ring");
   }
 
