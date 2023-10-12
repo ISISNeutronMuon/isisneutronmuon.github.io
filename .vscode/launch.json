@@ -5,7 +5,13 @@
       "name": "Next.js: debug server-side",
       "type": "node-terminal",
       "request": "launch",
-      "command": "bun run dev"
+      "command": "npm run dev"
+    },
+    {
+      "name": "Next.js: jest",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm exec -- jest ${file}"
     },
     {
       "name": "Next.js: debug client-side",
