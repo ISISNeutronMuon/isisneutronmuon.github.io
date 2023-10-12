@@ -1,4 +1,7 @@
 export type QuadrantConfig = {
+  // An id string without spaces
+  id: string,
+  // A human-readable title, can contain spaces
   title: string,
   colour: string
 };
@@ -19,22 +22,26 @@ export type ChartConfig = {
 
 export const chartConfig: ChartConfig = {
   sizePx: 896,
-  scale: [-18, 18],
-  axisWidthPx: 20,
+  scale: [-19, 19],
+  axisWidthPx: 40,
   quadrants: [
     {
-      title: "Languages & Frameworks",
-      colour: "#84b59c"
-    },
-    {
+      id: "techniques",
       title: "Techniques",
       colour: "#248ea6"
     },
     {
+      id: "platforms",
       title: "Platforms",
       colour: "#c57b67"
     },
     {
+      id: "languages-and-frameworks",
+      title: "Languages & Frameworks",
+      colour: "#84b59c"
+    },
+    {
+      id: "tools",
       title: "Tools",
       colour: "#f2a25c"
     }
