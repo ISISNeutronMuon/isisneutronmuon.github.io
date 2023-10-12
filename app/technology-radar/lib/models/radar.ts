@@ -1,12 +1,13 @@
 import { Quadrant } from "./quadrant";
 
+export type QuadrantMap = Map<string, Quadrant>;
+
 export class Radar {
   // Map the title to the quadrant object
-  quadrants: Map<string, Quadrant>;
+  quadrants: QuadrantMap;
 
-  constructor(quadrants: Quadrant[]) {
-    this.quadrants = new Map<string, Quadrant>();
-    quadrants.forEach((quadrant) => this.quadrants.set(quadrant.title, quadrant));
+  constructor(quadrants: QuadrantMap) {
+    this.quadrants = quadrants;
 
     this.throwIfObjectInvalid();
   }

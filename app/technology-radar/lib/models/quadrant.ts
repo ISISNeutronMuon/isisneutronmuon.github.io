@@ -13,7 +13,11 @@ export class Quadrant {
   }
 
   addBlip(blip: Blip): void {
-    this.blips.push(blip);
+    if (blip.category == this.title) {
+      this.blips.push(blip);
+    } else {
+      throw Error(`Blip category (${blip.category}) does not match quadrant title (${this.title}).`);
+    }
   }
 
   private throwIfObjectInvalid() {
