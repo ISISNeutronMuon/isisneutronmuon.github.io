@@ -77,7 +77,7 @@ function drawQuadrant(quadrantTransform: QuadrantTransform, quadrantConfig: Quad
   const outerRadiusPx = toPixels(rings[rings.length - 1].radius, xScale);
 
   // Determine where the label should be written based on the rotation angle along
-  // with  the origin of a rectangle drawn underneath the quadrant so that the
+  // with determining the origin of a rectangle drawn underneath the quadrant so that the
   // whole area is clickable.
   const { quadrantLabelPos, linkRectOrigin } = (() => {
     if (quadrantTransform.angleDeg < 90)
