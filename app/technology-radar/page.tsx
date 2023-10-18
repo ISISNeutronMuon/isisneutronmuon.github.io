@@ -1,4 +1,5 @@
-//'use client'
+"use client"
+
 import * as d3 from "d3";
 import Link from "next/link";
 
@@ -10,6 +11,15 @@ import { loadRadarContent } from "./lib/io"
 import { Quadrant as QuadrantView } from "./lib/view/quadrant";
 import { BlipPositionGenerator } from "./lib/util/blipPositionGenerator";
 import { Quadrant } from "./lib/models/quadrant";
+
+// Set the display style of an element by ID
+let setDisplayStyle = (element_id: string, displayStyle: string) => {
+  return () => {
+    let tooltipElement = document.getElementById(element_id);
+    if (tooltipElement)
+      tooltipElement.style['display'] = displayStyle;
+  }
+}
 
 export default function TechnologyRadar() {
   // Create a d3 scale to map from pixels in the browser to the point scale defined
@@ -30,14 +40,25 @@ export default function TechnologyRadar() {
     new QuadrantView(chartConfig.quadrants[3], { x: halfWidth - axisWidthHalfPx, y: halfWidth + axisWidthHalfPx }, 'bottom-left'),
   ];
 
-  const radarModel: Radar = loadRadarContent(true);
-
   return (
     <svg width={size} height={size} xmlns="http://www.w3.org/2000/svg">
       {drawQuadrants(quadrants, chartConfig.rings, chartConfig.blips.radius, xScale)}
       {drawRingLabels(chartConfig.rings, { x: halfWidth, y: halfWidth }, axisWidthPx, xScale)}
     </svg>
   )
+}
+
+function calculateTooltipBoxDimensions(text: string): { width: number, height: number, fontSize: string, margin: number } {
+  // We can't use the browser APIs during the static build process so we take a guess at
+  // a rough width per character
+  const widthPerChar = 10, charMaxHeight = 10,
+    widthPadding = 5, heightPadding = 15, margin = 5;
+  return {
+    width: widthPadding + text.length * widthPerChar,
+    height: heightPadding + charMaxHeight,
+    fontSize: "medium",
+    margin: margin
+  }
 }
 
 // Take a value on the scale defined by d3 and calculate the pixel
@@ -84,9 +105,9 @@ function drawQuadrant(quadrant: QuadrantView, rings: RingConfig[], blipRadius: n
 
 
   return (
-    <Link href={`/technology-radar/${config.id}`} key={`quadrant-${config.id}`} id={`quadrant-${config.id}`}>
-      <g transform={`translate(${centre.x} ${centre.y})`}>
-        <rect x={linkRectOrigin.x} y={linkRectOrigin.y} width={outerRadiusPx} height={outerRadiusPx} fill="white" z="1"></rect>
+    <Link href={`/technology-radar/${config.id}`} key={`quadrant-link-${config.id}`} id={`quadrant-${config.id}`}>
+      <g key={`quadrant-${config.id}`} transform={`translate(${centre.x} ${centre.y})`}>
+        <rect x={linkRectOrigin.x} y={linkRectOrigin.y} width={outerRadiusPx} height={outerRadiusPx} fill="white"></rect>
         <text x={quadrantLabelPos.x} y={quadrantLabelPos.y} textAnchor={quadrantLabelPos.anchor} fill={config.colour}>{config.title.toUpperCase()}</text>
         {rings.map((ring, ringIndex) =>
           <path key={`quadrant-ring-${ringIndex}`} fill={config.colour}
@@ -130,19 +151,34 @@ function drawBlips(quadrant: QuadrantView, rings: RingConfig[], blipRadius: numb
   xScale: d3.ScaleLinear<number, number>) {
   const radarModel: Radar = loadRadarContent(true);
   const quadrantConfig = quadrant.config;
-  const quadrantModel = radarModel.quadrants.get(quadrantConfig.title) as Quadrant;
+  const quadrantModel = radarModel.quadrants().get(quadrantConfig.title) as Quadrant;
+  const blipRadiusPx = toPixels(blipRadius, xScale);
 
   let jsx = [];
-  for (let index = 0; index < rings.length; ++index) {
-    const innerRadius = (index == 0) ? 0. : rings[index - 1].radius;
-    const outerRadius = rings[index].radius;
-    const { ringBlips, centres } = distributeBlipsInRing(quadrantModel.blipsInRing(rings[index].title), quadrant, innerRadius, outerRadius, blipRadius);
+  for (let ringIndex = 0; ringIndex < rings.length; ++ringIndex) {
+    const innerRadius = (ringIndex == 0) ? 0. : rings[ringIndex - 1].radius;
+    const outerRadius = rings[ringIndex].radius;
+    const { ringBlips, centres } = distributeBlipsInRing(quadrantModel.blipsInRing(rings[ringIndex].title), quadrant,
+      innerRadius, outerRadius, blipRadius);
     for (let blipIndex = 0; blipIndex < ringBlips.length; ++blipIndex) {
-      jsx.push(
-        <g>
-          <circle cx={toPixels(centres[blipIndex].x, xScale)} cy={toPixels(centres[blipIndex].y, xScale)}
-            r={toPixels(blipRadius, xScale)} fill={quadrantConfig.colour} />
+      const centre = centres[blipIndex], blip = ringBlips[blipIndex];
+      const cx = toPixels(centre.x, xScale), cy = toPixels(centre.y, xScale);
+      const blipId = `blip-${blip.id}`, markerId = `blip-symbol-${blip.id}`, tooltipId = `blip-tooltip-${blip.id}`;
+      const tooltipBox = calculateTooltipBoxDimensions(blip.title);
+
+      jsx.push(<g id={blipId} key={blipId}>
+        <g id={markerId} key={markerId} onMouseOver={setDisplayStyle(tooltipId, "block")} onMouseOut={setDisplayStyle(tooltipId, "none")}>
+          <circle cx={cx} cy={cy} r={blipRadiusPx} fill={quadrantConfig.colour} />
+          <text x={cx} y={cy} dy="1" textAnchor="middle" dominantBaseline="middle"
+            fill="white" style={{ fontSize: `${tooltipBox.fontSize}` }}>{blip.id}</text>
         </g>
+        <g key={tooltipId} id={tooltipId} style={{ display: "none" }} >
+          <rect x={cx - 0.5 * tooltipBox.width} y={cy - (tooltipBox.margin + blipRadiusPx + tooltipBox.height)}
+            width={tooltipBox.width} height={tooltipBox.height} rx={5} ry={5} />
+          <text x={cx} y={cy - (tooltipBox.margin + blipRadiusPx + 0.5 * tooltipBox.height)}
+            textAnchor="middle" dominantBaseline="middle" style={{ fontSize: `${tooltipBox.fontSize}` }} fill="white">{blip.title}</text>
+        </g>
+      </g>
       );
     }
   }

@@ -4,10 +4,10 @@ export class Quadrant {
   title: string;
   blips: Blip[];
 
-  // A named quadrant with no blips
-  constructor(title: string) {
+  // A named quadrant with an optional set of blips
+  constructor(title: string, blips: Blip[] = []) {
     this.title = title;
-    this.blips = [];
+    this.blips = blips;
 
     this.throwIfObjectInvalid();
   }

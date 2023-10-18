@@ -1,9 +1,13 @@
 export class Blip {
-  title: string;
+  // A unqiue id to identify this blip in a collection
+  id: number;
   quadrantTitle: string;
   ring: string;
+  title: string;
 
-  constructor(title: string, quadrantTitle: string, ring: string) {
+
+  constructor(id: number, title: string, quadrantTitle: string, ring: string) {
+    this.id = id;
     this.title = title;
     this.quadrantTitle = quadrantTitle;
     this.ring = ring;
@@ -23,5 +27,4 @@ export class Blip {
     throwIfFieldEmpty("quadrantTitle");
     throwIfFieldEmpty("ring");
   }
-
 };

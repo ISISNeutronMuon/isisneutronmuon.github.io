@@ -71,6 +71,6 @@ export const chartConfig: ChartConfig = {
     }
   ],
   blips: {
-    radius: 0.4
+    radius: 0.5
   }
 };

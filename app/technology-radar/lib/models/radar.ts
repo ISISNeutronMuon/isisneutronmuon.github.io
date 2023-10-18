@@ -1,20 +1,27 @@
+import { BlipTable } from "./blipTable";
 import { Quadrant } from "./quadrant";
 
 export type QuadrantMap = Map<string, Quadrant>;
 
 export class Radar {
-  // Map the title to the quadrant object
-  quadrants: QuadrantMap;
+  private blipData: BlipTable;
 
-  constructor(quadrants: QuadrantMap) {
-    this.quadrants = quadrants;
-
-    this.throwIfObjectInvalid();
+  constructor(blipData: BlipTable) {
+    this.blipData = blipData;
   }
 
-  private throwIfObjectInvalid() {
-    if (this.quadrants.size < 4) {
-      throw Error(`Only ${this.quadrants.size} quadrants found in Radar. At least 4 are required.`);
-    }
+  // Return a map of blips in each quadrant
+  quadrants(): QuadrantMap {
+    let quadrants = new Map();
+    for (const [_, blip] of this.blipData.entries()) {
+      if (quadrants.has(blip.quadrantTitle)) {
+        quadrants.get(blip.quadrantTitle).addBlip(blip);
+      } else {
+        quadrants.set(blip.quadrantTitle, new Quadrant(blip.quadrantTitle, [blip]));
+      }
+    };
+
+    return quadrants;
   }
+
 };
