@@ -39,12 +39,13 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
     ".next/types/**/*.ts",
     "./dist/types/**/*.ts",
-    "app/page.mdx",
-    "app/blog/[slug]"
+    "types/*.d.ts"
   ],
   "exclude": [
     "node_modules",
