@@ -9,6 +9,7 @@ export type QuadrantConfig = {
 export type RingConfig = {
   title: string,
   radius: number,
+  badgeColor: string;
 };
 
 export type BlipConfig = {
@@ -56,22 +57,33 @@ export const chartConfig: ChartConfig = {
   rings: [
     {
       title: "Adopt",
-      radius: 7
+      radius: 7,
+      badgeColor: "#22c55e"
     },
     {
       title: "Trial",
-      radius: 11
+      radius: 11,
+      badgeColor: "#f59e0b"
     },
     {
       title: "Assess",
-      radius: 15
+      radius: 15,
+      badgeColor: "#38bdf8"
     },
     {
       title: "Hold",
-      radius: 17
+      radius: 17,
+      badgeColor: "#78716c"
     }
   ],
   blips: {
     radius: 0.5
   }
 };
+
+// Return the config for a given quadrant or undefined
+// if a quadrant with that ID cannot be found
+export function quadrantConfig(quadrantId: string): QuadrantConfig | undefined {
+  const configs = chartConfig.quadrants.filter((quadrant) => quadrant.id == quadrantId);
+  return (configs.length == 1) ? configs[0] : undefined;
+}
