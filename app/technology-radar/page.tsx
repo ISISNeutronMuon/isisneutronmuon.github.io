@@ -107,8 +107,10 @@ function drawQuadrant(quadrant: QuadrantView, rings: RingConfig[], blipRadius: n
   return (
     <Link href={`/technology-radar/${config.id}`} key={`quadrant-link-${config.id}`} id={`quadrant-${config.id}`}>
       <g key={`quadrant-${config.id}`} transform={`translate(${centre.x} ${centre.y})`}>
-        <rect x={linkRectOrigin.x} y={linkRectOrigin.y} width={outerRadiusPx} height={outerRadiusPx} fill="white"></rect>
-        <text x={quadrantLabelPos.x} y={quadrantLabelPos.y} textAnchor={quadrantLabelPos.anchor} fill={config.colour}>{config.title.toUpperCase()}</text>
+        <rect x={linkRectOrigin.x} y={linkRectOrigin.y} width={outerRadiusPx} height={outerRadiusPx} fill="white"
+          data-cy={`quadrant-rect-${config.id}`} />
+        <text x={quadrantLabelPos.x} y={quadrantLabelPos.y} textAnchor={quadrantLabelPos.anchor}
+          fill={config.colour} data-cy={`quadrant-title-${config.id}`} > {config.title.toUpperCase()}</text>
         {rings.map((ring, ringIndex) =>
           <path key={`quadrant-ring-${ringIndex}`} fill={config.colour}
             d={arcPath(quadrant.startEndAngles, toPixels(ring.radius, xScale), lineThicknessPx)} />)}
@@ -116,7 +118,7 @@ function drawQuadrant(quadrant: QuadrantView, rings: RingConfig[], blipRadius: n
         {<line x1="0" x2="0" y1="0" y2={quadrant.radialBasis.y * outerRadiusPx} stroke={config.colour} />}
         {drawBlips(quadrant, chartConfig.rings, blipRadius, xScale)}
       </g>
-    </Link>)
+    </Link >)
 }
 
 // Centre defines the centre coordinates of the radar
@@ -137,10 +139,10 @@ function drawRingLabels(rings: RingConfig[], centre: { x: number, y: number }, q
         // The <div> is only necessary to silence a react warning that each child requires
         // a unique key attribute
         return (<g key={`labels-${rings[ringIndex].title}`}>
-          <text textAnchor="middle" dominantBaseline="middle" y={`${centre.y}`}
-            x={centre.x + 0.5 * quadrantGapPx + labelPositionsX[ringIndex]}>{rings[ringIndex].title.toUpperCase()}</text>
-          <text textAnchor="middle" dominantBaseline="middle" y={`${centre.y}`}
-            x={centre.x - 0.5 * quadrantGapPx - labelPositionsX[ringIndex]}>{rings[ringIndex].title.toUpperCase()}</text>
+          <text data-cy={`ring-label-left-${rings[ringIndex].title}`} textAnchor="middle" dominantBaseline="middle"
+            y={`${centre.y}`} x={centre.x + 0.5 * quadrantGapPx + labelPositionsX[ringIndex]}>{rings[ringIndex].title.toUpperCase()}</text>
+          <text data-cy={`ring-label-right-${rings[ringIndex].title}`} textAnchor="middle" dominantBaseline="middle"
+            y={`${centre.y}`} x={centre.x - 0.5 * quadrantGapPx - labelPositionsX[ringIndex]}>{rings[ringIndex].title.toUpperCase()}</text>
         </g>)
       })}
     </g>
