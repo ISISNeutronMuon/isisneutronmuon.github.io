@@ -16,8 +16,36 @@ export class BlipTable {
     return this._data.keys();
   }
 
+  blips(): IterableIterator<Blip> {
+    return this._data.values();
+  }
+
   entries(): IterableIterator<[number, Blip]> {
     return this._data.entries();
+  }
+
+  get(id: number): Blip | undefined {
+    return this._data.get(id)
+  }
+
+  filterByQuadrant(quadrantId: string) {
+    const filtered = new BlipTable();
+    this._data.forEach((value) => {
+      if (value.quadrantId == quadrantId) {
+        filtered._data.set(value.id, value);
+      }
+    });
+    return filtered;
+  }
+
+  filterByRing(ringTitle: string) {
+    const filtered = new BlipTable();
+    this._data.forEach((value) => {
+      if (value.ring == ringTitle) {
+        filtered._data.set(value.id, value);
+      }
+    });
+    return filtered;
   }
 
   appendBlip(...blipArgs: string[]) {

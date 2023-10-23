@@ -1,13 +1,9 @@
-import { Blip } from "./models/blip";
 import { BlipTable } from "./models/blipTable";
-import { type QuadrantMap, Radar } from "./models/radar";
-import { Quadrant } from "./models/quadrant";
-import { chartConfig } from "./config";
 
 import { BLIPS_TEST_CONTENT } from "@/data/radar/testing-blips";
 
 // Load all blips as a table
-export function loadBlipContent(development: boolean): BlipTable {
+export function loadAllBlips(development: boolean): BlipTable {
   let blipTable = new BlipTable();
   if (development) {
     for (const blipFields of BLIPS_TEST_CONTENT) {
@@ -19,8 +15,7 @@ export function loadBlipContent(development: boolean): BlipTable {
   return blipTable;
 }
 
-
-export function loadRadarContent(development: boolean = false): Radar {
-  const blipsTable = loadBlipContent(development);
-  return new Radar(blipsTable);
+// Load blips for a given quadrant
+export function loadBlipsByQuadrant(quadrantId: string, development: boolean): BlipTable {
+  return loadAllBlips(development).filterByQuadrant(quadrantId);
 }

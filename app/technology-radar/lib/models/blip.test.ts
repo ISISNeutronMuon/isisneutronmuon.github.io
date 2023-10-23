@@ -16,7 +16,7 @@ describe('Blip construction tests', () => {
     const blip = new Blip(1, title, catgeory, ring);
 
     expect(blip.title).toBe(title);
-    expect(blip.quadrantTitle).toBe(catgeory);
+    expect(blip.quadrantId).toBe(catgeory);
     expect(blip.ring).toBe(ring);
   });
 

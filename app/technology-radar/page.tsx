@@ -4,13 +4,11 @@ import * as d3 from "d3";
 import Link from "next/link";
 
 import { chartConfig, RingConfig } from "./lib/config";
-import { Radar } from "./lib/models/radar";
-import { Blip } from "./lib/models/blip";
-import { loadRadarContent } from "./lib/io"
+import { BlipTable } from "./lib/models/blipTable";
+import { loadBlipsByQuadrant } from "./lib/io"
 
 import { Quadrant as QuadrantView } from "./lib/view/quadrant";
 import { BlipPositionGenerator } from "./lib/util/blipPositionGenerator";
-import { Quadrant } from "./lib/models/quadrant";
 
 // Set the display style of an element by ID
 let setDisplayStyle = (element_id: string, displayStyle: string) => {
@@ -151,21 +149,20 @@ function drawRingLabels(rings: RingConfig[], centre: { x: number, y: number }, q
 
 function drawBlips(quadrant: QuadrantView, rings: RingConfig[], blipRadius: number,
   xScale: d3.ScaleLinear<number, number>) {
-  const radarModel: Radar = loadRadarContent(true);
   const quadrantConfig = quadrant.config;
-  const quadrantModel = radarModel.quadrants().get(quadrantConfig.title) as Quadrant;
-  const blipRadiusPx = toPixels(blipRadius, xScale);
+  const blipsInQuadrant = loadBlipsByQuadrant(quadrant.config.id, true);
 
+  const blipRadiusPx = toPixels(blipRadius, xScale);
   let jsx = [];
   for (let ringIndex = 0; ringIndex < rings.length; ++ringIndex) {
     const innerRadius = (ringIndex == 0) ? 0. : rings[ringIndex - 1].radius;
     const outerRadius = rings[ringIndex].radius;
-    const { ringBlips, centres } = distributeBlipsInRing(quadrantModel.blipsInRing(rings[ringIndex].title), quadrant,
+    const { ringBlips, centres } = distributeBlipsInRing(blipsInQuadrant.filterByRing(rings[ringIndex].title), quadrant,
       innerRadius, outerRadius, blipRadius);
-    for (let blipIndex = 0; blipIndex < ringBlips.length; ++blipIndex) {
+    for (let blipIndex = 0; blipIndex < centres.length; ++blipIndex) {
       const centre = centres[blipIndex], blip = ringBlips[blipIndex];
       const cx = toPixels(centre.x, xScale), cy = toPixels(centre.y, xScale);
-      const blipId = `blip-${blip.id}`, markerId = `blip-symbol-${blip.id}`, tooltipId = `blip-tooltip-${blip.id}`;
+      const blipId = `blip - ${blip.id}`, markerId = `blip - symbol - ${blip.id}`, tooltipId = `blip - tooltip - ${blip.id}`;
       const tooltipBox = calculateTooltipBoxDimensions(blip.title);
 
       jsx.push(<g id={blipId} key={blipId}>
@@ -189,7 +186,8 @@ function drawBlips(quadrant: QuadrantView, rings: RingConfig[], blipRadius: numb
 
 // Determine the (x,y) position of a set of blips for a quadrant. The blips are
 // distributed with random positions also taking care that they do not overlap.
-function distributeBlipsInRing(blips: Blip[], quadrant: QuadrantView, innerRadius: number, outerRadius: number, blipRadius: number) {
+function distributeBlipsInRing(blips: BlipTable, quadrant: QuadrantView,
+  innerRadius: number, outerRadius: number, blipRadius: number) {
   const generator = new BlipPositionGenerator(quadrant.radialBasis, innerRadius, outerRadius, blipRadius);
-  return { ringBlips: blips, centres: generator.generateCentres(blips.length) };
+  return { ringBlips: Array.from(blips.blips()), centres: generator.generateCentres(blips.size) };
 }

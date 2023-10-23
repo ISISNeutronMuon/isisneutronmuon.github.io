@@ -1,7 +1,7 @@
-import { loadRadarContent } from './io';
+import { loadAllBlips } from './io';
 
-describe('Radar IO tests', () => {
-  test('Expected 4 qudrants', () => {
-    expect(loadRadarContent().quadrants.size).toBe(4)
+describe('IO tests', () => {
+  test('All test blips loaded', () => {
+    expect(loadAllBlips(true).size).toBe(18);
   });
 });

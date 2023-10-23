@@ -31,6 +31,7 @@ export const chartConfig: ChartConfig = {
   scale: [-19, 19],
   axisWidth: 1.5,
   quadrants: [
+    // id is used as the basename for the path to a page describing the quadrant
     {
       id: "tools",
       title: "Tools",
