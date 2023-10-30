@@ -1,6 +1,8 @@
 import { addBasePath } from 'next/dist/client/add-base-path';
 import Link from 'next/link';
 import FormattedDate from '@/components/formatted-date';
+import PageTitle from '@/components/page-title';
+
 import { loadProductDescriptions, getLatestReleases, ssgInventory } from '@/lib/products';
 
 const defaultReleaseIcon = 'deploy.png'
@@ -28,9 +30,7 @@ let releasesJSX = async () => {
 
 export default async function Releases() {
   return (<>
-    <header className="prose mb-4">
-      <h1>Releases</h1>
-    </header>
+    <PageTitle title="Releases" />
     <div className="flex flex-col flex-wrap">
       <div>
         <h3 className="text-2xl font-normal mb-4">Scientific Software</h3>

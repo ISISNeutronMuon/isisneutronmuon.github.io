@@ -1,3 +1,4 @@
+import PageTitle from "@/components/page-title";
 import Link from "next/link";
 
 import { QuadrantConfig, chartConfig, quadrantConfig } from "../lib/config";
@@ -25,9 +26,7 @@ export default async function RadarQuadrant({ params }: Params) {
 
   return (
     <>
-      <header className="prose mb-4">
-        <h1>{quadrantConf.title}</h1>
-      </header>
+      <PageTitle title={quadrantConf.title} />
       <div className="flex flex-row justify-between mx-12">
         {chartConfig.rings.map((ring) => {
           const ringBlips = Array.from(quadrantBlips.filterByRing(ring.title).blips());
