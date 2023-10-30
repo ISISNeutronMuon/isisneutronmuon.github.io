@@ -1,7 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import Container from '@/components/container'
-import Header from '@/components/header'
+import TopNavigation from '@/components/top-navigation'
 import Footer from '@/components/footer'
 
 import { siteTitle, siteDescription } from '@/lib/consts'
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
+        <TopNavigation />
         <main className="py-8" aria-label="Content">
           <Container>
             {children}

@@ -8,7 +8,7 @@ const headerItems = [
   { title: "Technology Radar", href: "/technology-radar" }
 ];
 
-export default function Header() {
+export default function TopNavigation() {
   return (
     <header
       className="border-t-8 border-t-neutral-600 border-b border-b-stone-200"
