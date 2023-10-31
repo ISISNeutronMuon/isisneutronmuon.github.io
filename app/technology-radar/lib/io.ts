@@ -7,7 +7,7 @@ export function loadAllBlips(development: boolean): BlipTable {
   let blipTable = new BlipTable();
   if (development) {
     for (const blipFields of BLIPS_TEST_CONTENT) {
-      blipTable.appendBlip(blipFields[0], blipFields[1], blipFields[2]);
+      blipTable.appendBlip(blipFields[0], blipFields[1], blipFields[2], blipFields[3]);
     }
   }
   else throw Error("Loading production data has not been implemented yet");

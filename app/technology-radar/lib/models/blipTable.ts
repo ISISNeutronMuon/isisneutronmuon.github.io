@@ -50,9 +50,9 @@ export class BlipTable {
 
   appendBlip(...blipArgs: string[]) {
     const id = this._data.size + 1;
-    this._data.set(id, new Blip(id, blipArgs[0], blipArgs[1], blipArgs[2]));
+    // @ts-expect-error Typescript gives an error that the blipArgs array is not
+    // a fixed size but that's what we want so we avoid duplicating the Blip
+    // constructor
+    this._data.set(id, new Blip(id, ...blipArgs));
   }
-
-
-}
-;
+};

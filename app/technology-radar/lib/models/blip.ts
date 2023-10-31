@@ -1,16 +1,20 @@
 export class Blip {
   // A unqiue id to identify this blip in a collection
   id: number;
+
+  // metadata
+  title: string;
   quadrantId: string;
   ring: string;
-  title: string;
+  description: string;
 
-
-  constructor(id: number, title: string, quadrantId: string, ring: string) {
+  constructor(id: number, title: string, quadrantId: string,
+    ring: string, description: string) {
     this.id = id;
     this.title = title;
     this.quadrantId = quadrantId;
     this.ring = ring;
+    this.description = description;
 
     this.throwIfObjectInvalid();
   }
@@ -26,5 +30,6 @@ export class Blip {
     throwIfFieldEmpty("title");
     throwIfFieldEmpty("quadrantId");
     throwIfFieldEmpty("ring");
+    throwIfFieldEmpty("description");
   }
 };
