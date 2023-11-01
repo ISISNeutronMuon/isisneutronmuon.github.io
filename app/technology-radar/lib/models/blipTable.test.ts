@@ -1,31 +1,5 @@
+import { fakeBlipTable } from "../util/testing/fakeBlipTable";
 import { Blip } from "./blip";
-import { BlipTable } from "./blipTable";
-
-// Create a fake table of data for testing
-// The entries are distributed over 4 rings and 4 quadrants in the pattern
-//   id, quadrant-1, ring-{1-4}
-//   id, quadrant-2, ring-{1-4}
-//   id, quadrant-3, ring-{1-4}
-//   id, quadrant-4, ring-{1-4}
-function fakeBlipTable(numEntries: number) {
-  const table = new BlipTable();
-  const numQuadrants = 4;
-  const numRings = 4;
-
-  let blipIndex = 0, quadrantIndex = 0, ringIndex = 0;
-  while (blipIndex < numEntries) {
-    table.appendBlip(`blipTitle-${blipIndex + 1}`,
-      `quadrant-${quadrantIndex + 1}`, `ring-${ringIndex + 1}`, "descr");
-    blipIndex += 1;
-    quadrantIndex += 1;
-    ringIndex += 1;
-    // wrap around if we need to
-    quadrantIndex = quadrantIndex % numQuadrants;
-    ringIndex = ringIndex % numRings;
-  }
-
-  return table;
-}
 
 describe('BlipTable construction tests', () => {
   test("Default construction gives empty table", () => {
@@ -37,7 +11,7 @@ describe('BlipTable addBlip', () => {
   test("addBlip increases size by 1", () => {
     const numEntriesBefore = 1;
     const table = fakeBlipTable(numEntriesBefore);
-    table.appendBlip("blipTitle", "quadrant", "ring", "desc");
+    table.appendBlip("ref-name", "blipTitle", "quadrant", "ring", "desc");
     expect(table.size).toBe(numEntriesBefore + 1);
   })
   test("addBlip assigns unique id to new blip", () => {

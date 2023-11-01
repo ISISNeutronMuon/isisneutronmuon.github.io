@@ -3,14 +3,16 @@ export class Blip {
   id: number;
 
   // metadata
+  refname: string; // Used for URLs, no spaces, all lowercase
   title: string;
   quadrantId: string;
   ring: string;
   description: string;
 
-  constructor(id: number, title: string, quadrantId: string,
+  constructor(id: number, refname: string, title: string, quadrantId: string,
     ring: string, description: string) {
     this.id = id;
+    this.refname = refname;
     this.title = title;
     this.quadrantId = quadrantId;
     this.ring = ring;
@@ -27,6 +29,7 @@ export class Blip {
       }
     };
 
+    throwIfFieldEmpty("refname");
     throwIfFieldEmpty("title");
     throwIfFieldEmpty("quadrantId");
     throwIfFieldEmpty("ring");
