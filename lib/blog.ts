@@ -1,6 +1,7 @@
 import fs from 'fs'
-import matter from 'gray-matter'
 import { join } from 'path'
+
+import { readMarkdownWithFrontmatter } from './markdown'
 
 const postsDirectory = join(process.cwd(), 'app', 'blog', '_posts')
 
@@ -18,14 +19,14 @@ export function getPostSlugs(): string[] {
 
 export function getPostBySlug(slug: string): Post {
   const { realSlug, fullPath } = mdFullPath(slug)
-  const { data, content } = matter(fs.readFileSync(fullPath, 'utf8'))
+  const { frontmatter, body } = readMarkdownWithFrontmatter(fs.readFileSync(fullPath, 'utf8'))
 
   return {
     slug: realSlug,
-    title: data.title,
-    description: data.description,
-    date: new Date(data.date),
-    content: content
+    title: frontmatter.title,
+    description: frontmatter.description,
+    date: new Date(frontmatter.date),
+    content: body
   }
 }
 

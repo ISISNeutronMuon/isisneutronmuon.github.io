@@ -3,12 +3,12 @@
 import * as d3 from "d3";
 import Link from "next/link";
 
-import { chartConfig, RingConfig } from "./lib/config";
-import { BlipTable } from "./lib/models/blipTable";
-import { loadBlipsByQuadrant } from "./lib/io"
+import { RingConfig, chartConfig } from "@/lib/radar/config";
+import { BlipTable } from "@/lib/radar/models/blipTable";
+import { loadBlipsByQuadrant } from "@/lib/radar/io"
 
-import { Quadrant as QuadrantView } from "./lib/view/quadrant";
-import { BlipPositionGenerator } from "./lib/util/blipPositionGenerator";
+import { Quadrant as QuadrantView } from "@/lib/radar/view/quadrant";
+import { BlipPositionGenerator } from "@/lib/radar/util/blipPositionGenerator";
 
 // Set the display style of an element by ID
 let setDisplayStyle = (element_id: string, displayStyle: string) => {
@@ -37,6 +37,7 @@ export default function TechnologyRadar() {
     new QuadrantView(chartConfig.quadrants[2], { x: halfWidth + axisWidthHalfPx, y: halfWidth + axisWidthHalfPx }, 'bottom-right'),
     new QuadrantView(chartConfig.quadrants[3], { x: halfWidth - axisWidthHalfPx, y: halfWidth + axisWidthHalfPx }, 'bottom-left'),
   ];
+
 
   return (
     <svg width={size} height={size} xmlns="http://www.w3.org/2000/svg">
