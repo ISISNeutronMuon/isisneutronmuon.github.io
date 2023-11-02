@@ -1,4 +1,4 @@
-import { QuadrantConfig } from "../config";
+import { QuadrantConfig } from "../config-types";
 import { type Vector } from "../util/vector";
 
 

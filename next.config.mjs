@@ -2,9 +2,9 @@ import nextMDX from '@next/mdx'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkMDXFrontmatter from 'remark-mdx-frontmatter'
 
-// Set the PUBLIC_URL environment variable to the subpath that the application
+// Set the PUBLIC_ROOT environment variable to the subpath that the application
 // is hosted under. It must include the leading /. Defaults to an empty string
-const basePath = process.env.PUBLIC_URL || ""
+const basePath = process.env.PUBLIC_ROOT || ""
 
 const withMDX = nextMDX({
   extension: /\.mdx?$/,

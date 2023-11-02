@@ -13,7 +13,6 @@ export function readMarkdownWithFrontmatter(input: string): { frontmatter: { [ke
 }
 
 export function markdownToHtml(markdown: string) {
-  // @ts-expect-error: unknown node.
   const result = unified().use(remarkParse).use(remarkHtml).processSync(markdown)
   return result.toString()
 }

@@ -1,7 +1,7 @@
 import TechnologyRadar from "./page";
 
-import { BLIPS_TEST_CONTENT } from "@/data/radar/testing-blips";
-import { chartConfig } from "./lib/config";
+import { BLIPS_TEST_CONTENT } from "../../data/radar/testing-blips";
+import { chartConfig } from "./config";
 
 describe('<TechnologyRadar/>', () => {
   it('should render and display radar in expected format', () => {

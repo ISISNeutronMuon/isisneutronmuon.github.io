@@ -1,8 +1,8 @@
 import PageTitle from "@/components/page-title";
 import Link from "next/link";
-
-import { QuadrantConfig, chartConfig, quadrantConfig } from "../lib/config";
-import { loadBlipsByQuadrant } from "../lib/io";
+import { QuadrantConfig } from "@/lib/radar/config-types";
+import { loadBlipsByQuadrant } from "@/lib/radar/jsonio";
+import { chartConfig, quadrantConfig } from "../config";
 
 type Params = {
   params: {

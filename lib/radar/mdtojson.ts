@@ -1,22 +1,11 @@
+import { type Dirent, readFileSync, readdirSync } from "fs";
 import { basename, join } from "path";
 import { readMarkdownWithFrontmatter } from "@/lib/markdown";
 
 import { BlipTable } from "./models/blipTable";
 import { Radar } from "./models/radar";
 
-export const RADAR_DATA_ROOT = join(process.cwd(), 'data', 'radar')
 const BLIP_FILE_EXT = '.md';
-
-
-// Load all blips as a flat table
-export function loadAllBlips(development: boolean): BlipTable {
-  return new BlipTable();
-}
-
-// Load blips for a given quadrant
-export function loadBlipsByQuadrant(quadrantId: string, development: boolean): BlipTable {
-  return loadAllBlips(development).filterByQuadrant(quadrantId);
-}
 
 // A radar version is a separate directory, named using the release date of
 // the radar in the format YYYY-MM-DD, containing a series of markdown files.
@@ -37,7 +26,7 @@ export function loadBlipsByQuadrant(quadrantId: string, development: boolean): B
 //   - ring: A string describing the ring (see config.ts for options)
 //
 // The radar version return is the most recent
-export function loadRadarContent(radar_dir: string): Radar {
+export function loadRadarFromMarkdown(radar_dir: string): Radar {
   const radarVersions = discoverRadars(radar_dir);
   const blipTable = new BlipTable();
   for (let { direc } of radarVersions) {
@@ -50,7 +39,7 @@ export function loadRadarContent(radar_dir: string): Radar {
 // Given a directory, find the radar directories and assign them versions
 export function discoverRadars(radarRoot: string) {
   // Final list is sorted with earliest first
-  const radarDirnames = fs.readdirSync(radarRoot, { withFileTypes: true })
+  const radarDirnames = readdirSync(radarRoot, { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory());
   radarDirnames.sort((a, b) => new Date(a.name).valueOf() - new Date(b.name).valueOf());
 
@@ -61,7 +50,7 @@ export function discoverRadars(radarRoot: string) {
 
 // Load the blips from a given directory
 export function loadBlipsIntoTable(table: BlipTable, path: string) {
-  const blipFiles = fs.readdirSync(path, { withFileTypes: true });
+  const blipFiles = readdirSync(path, { withFileTypes: true });
   for (const blipFile of blipFiles) {
     loadBlip(table, blipFile);
   }
@@ -69,9 +58,9 @@ export function loadBlipsIntoTable(table: BlipTable, path: string) {
 }
 
 // Given a path to a markdown file, load the content as a Blip
-export function loadBlip(table: BlipTable, path: fs.Dirent) {
+export function loadBlip(table: BlipTable, path: Dirent) {
   let toBlipRef = (filename: string) => basename(filename, BLIP_FILE_EXT);
 
-  const { frontmatter, body } = readMarkdownWithFrontmatter(fs.readFileSync(join(path.path, path.name), 'utf8'));
+  const { frontmatter, body } = readMarkdownWithFrontmatter(readFileSync(join(path.path, path.name), 'utf8'));
   table.appendBlip(toBlipRef(path.name), frontmatter.title, frontmatter.quadrant, frontmatter.ring, body);
 }

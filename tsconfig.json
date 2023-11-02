@@ -2,17 +2,17 @@
   "compilerOptions": {
     "target": "es6",
     "lib": [
-      "dom",
-      "dom.iterable",
       "esnext"
     ],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "allowArbitraryExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -22,6 +22,7 @@
         "name": "next"
       }
     ],
+    "baseUrl": "./",
     "paths": {
       "@/*": [
         "./*"
@@ -43,12 +44,16 @@
     "app/**/*.tsx",
     "components/**/*.ts",
     "components/**/*.tsx",
+    "lib/**/*.ts",
+    "types/*.d.ts",
     ".next/types/**/*.ts",
-    "./dist/types/**/*.ts",
-    "types/*.d.ts"
+    "./dist/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules",
-    "dist"
+    "cypress.config.ts",
+    "cypress",
+    "./**/*.cy.*",
+    "dist",
+    "node_modules"
   ]
 }

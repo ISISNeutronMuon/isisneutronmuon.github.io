@@ -3,12 +3,13 @@
 import * as d3 from "d3";
 import Link from "next/link";
 
-import { RingConfig, chartConfig } from "@/lib/radar/config";
 import { BlipTable } from "@/lib/radar/models/blipTable";
-import { loadBlipsByQuadrant } from "@/lib/radar/io"
-
-import { Quadrant as QuadrantView } from "@/lib/radar/view/quadrant";
 import { BlipPositionGenerator } from "@/lib/radar/util/blipPositionGenerator";
+import { Quadrant as QuadrantView } from "@/lib/radar/view/quadrant";
+import { RingConfig } from "@/lib/radar/config-types";
+import { loadBlipsByQuadrant } from "@/lib/radar/jsonio"
+
+import { chartConfig } from "./config";
 
 // Set the display style of an element by ID
 let setDisplayStyle = (element_id: string, displayStyle: string) => {

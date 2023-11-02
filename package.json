@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "tsc": "tsc --noEmit",
     "test:unit": "jest",
     "component:headless": "cypress run --component",
     "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\""
