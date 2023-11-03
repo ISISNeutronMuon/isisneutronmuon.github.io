@@ -1,9 +1,34 @@
 import { fakeBlipTable } from "../util/testing/fakeBlipTable";
 import { Blip } from "./blip";
+import { BlipTable } from "./blipTable";
 
 describe('BlipTable construction tests', () => {
   test("Default construction gives empty table", () => {
     expect(fakeBlipTable(0).size).toBe(0);
+  })
+  test("Construction with list of blip properties reads expected properties", () => {
+    const blipProps = [
+      {
+        id: 1,
+        refname: "refname-1",
+        title: "title 1",
+        quadrantId: "quadrant-1",
+        ring: "ring-1",
+        description: "My description 1"
+      },
+      {
+        id: 2,
+        refname: "refname-2",
+        title: "title 2",
+        quadrantId: "quadrant-2",
+        ring: "ring-2",
+        description: "My description 2"
+      }
+    ]
+
+    const table = new BlipTable(blipProps);
+
+    expect(table.size).toBe(2);
   })
 });
 

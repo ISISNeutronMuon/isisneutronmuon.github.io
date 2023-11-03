@@ -21,6 +21,36 @@ export class Blip {
     this.throwIfObjectInvalid();
   }
 
+  static fromObject(props: {
+    id: number;
+    refname: string;
+    title: string;
+    quadrantId: string;
+    ring: string;
+    description: string;
+  }) {
+    return new Blip(props.id, props.refname, props.title, props.quadrantId, props.ring, props.description);
+  }
+
+  // Return a flat object representation of this Blip
+  toObject(): {
+    id: number;
+    refname: string;
+    title: string;
+    quadrantId: string;
+    ring: string;
+    description: string;
+  } {
+    return {
+      id: this.id,
+      refname: this.refname,
+      title: this.title,
+      quadrantId: this.quadrantId,
+      ring: this.ring,
+      description: this.description
+    }
+  }
+
   private throwIfObjectInvalid() {
     let throwIfFieldEmpty = (fieldName: string) => {
       // @ts-ignore dict-like accessor is flagged as an error but is not

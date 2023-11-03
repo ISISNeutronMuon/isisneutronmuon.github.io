@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "createRadarJson": "tsx ./scripts/createRadarJson.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -49,6 +50,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "serve": "^14.2.1",
     "start-server-and-test": "^2.0.1",
-    "ts-jest": "^29.1.1"
+    "ts-jest": "^29.1.1",
+    "tsx": "^3.14.0"
   }
 }

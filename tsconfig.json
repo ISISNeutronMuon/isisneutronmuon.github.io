@@ -45,6 +45,7 @@
     "components/**/*.ts",
     "components/**/*.tsx",
     "lib/**/*.ts",
+    "scripts/*.ts",
     "types/*.d.ts",
     ".next/types/**/*.ts",
     "./dist/types/**/*.ts"
