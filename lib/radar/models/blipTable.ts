@@ -51,8 +51,9 @@ export class BlipTable {
 
   filterByRing(ringTitle: string) {
     const filtered = new BlipTable();
+    const ringTitleLower = ringTitle.toLowerCase();
     this._data.forEach((value) => {
-      if (value.ring == ringTitle) {
+      if (value.ring == ringTitleLower) {
         filtered._data.set(value.id, value);
       }
     });
