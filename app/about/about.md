@@ -1,7 +1,5 @@
 ---
-layout: page
 title: About
-permalink: /about/
 ---
 
 This is the home of computing and software at ISIS Neutron and Muon Facility.
@@ -13,8 +11,7 @@ You can find the source code for various projects at GitHub:
 [isisbusapps](https://github.com/isisbusapps/)
 [ral-facilities](https://github.com/ral-facilities)
 
-You can find the source code for Jekyll and the Minima theme used here at GitHub:
-[jekyll](https://github.com/jekyll/jekyll) / 
-[minima](https://github.com/jekyll/minima)
-
-
+These pages are built using [Next.js](https://nextjs.org/) with
+[tailwindcss](https://tailwindcss.com/) and
+[tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin)
+for styling.
