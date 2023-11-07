@@ -3,6 +3,7 @@
 import * as d3 from "d3";
 import Link from "next/link";
 
+import PageTitle from "@/components/page-title";
 import { RingConfig } from "@/lib/radar/config-types";
 import { BlipTable } from "@/lib/radar/models/blipTable";
 import { Radar } from "@/lib/radar/models/radar";
@@ -13,6 +14,11 @@ import { jsonToRadar } from "@/lib/radar/io/json";
 import { useEffect, useState } from "react";
 import { chartConfig, radarJsonUrl } from "./config";
 
+const dateFormatOptions: Intl.DateTimeFormatOptions = {
+  year: "numeric",
+  month: "long",
+  day: "2-digit",
+};
 let fetchRadarData = () => {
   const [radar, setRadar] = useState<null | Radar>(null);
   const url = radarJsonUrl();
@@ -66,12 +72,15 @@ export default function TechnologyRadar() {
   ];
 
   const radar = fetchRadarData();
-  return (
+  return (<>
+    <PageTitle title={`Technology Radar #${radar?.version}`} />
     <svg width={size} height={size} xmlns="http://www.w3.org/2000/svg">
       {drawQuadrants(quadrants, chartConfig.rings, xScale)}
       {drawRingLabels(chartConfig.rings, { x: halfWidth, y: halfWidth }, axisWidthPx, xScale)}
       {radar && drawAllBlips(radar, quadrants, chartConfig.rings, chartConfig.blips.radius, xScale)}
     </svg>
+    <p className="float-right text-sm">{`Published: ${Intl.DateTimeFormat('en-GB', dateFormatOptions).format(radar.releaseDate)}`}</p>
+  </>
   )
 }
 
