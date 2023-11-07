@@ -1,5 +1,5 @@
 # Build and deploy pages to the gh-pages branch
-name: Deploy to GitHub Pages
+name: Build & Deploy
 on:
   push:
     branches:
