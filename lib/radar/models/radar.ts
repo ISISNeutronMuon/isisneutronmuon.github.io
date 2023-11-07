@@ -11,15 +11,15 @@ export class Radar {
     this._blips = blips;
   }
 
-  get version() {
+  get version(): string {
     return this._version;
   }
 
-  get releaseDate() {
+  get releaseDate(): Date {
     return this._releaseDate;
   }
 
-  get blips() {
+  get blips(): BlipTable {
     return this._blips;
   }
 

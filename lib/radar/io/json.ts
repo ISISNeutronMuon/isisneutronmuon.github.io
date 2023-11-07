@@ -31,16 +31,11 @@ export function jsonToRadar(jsonString: string): Radar {
 
 // Take the table of blips and serialize it as a list of objects
 function _toObjectList(table: BlipTable): any[] {
-  let blips = [];
-  for (const blip of table.blips()) {
-    blips.push(blip.toObject())
-  }
-  return blips;
+  return table.map((blip) => blip.toObject());
 }
 
 // Take a list of objects with Blip properties and construct a BlipTable
 // out of them
 function _fromObjectList(blips: any[]): BlipTable {
   return new BlipTable(blips);
-
 }

@@ -11,7 +11,7 @@ export class BlipTable {
       _fillBlipMap(this._data, blipProps)
   }
 
-  appendBlip(...blipArgs: string[]) {
+  appendBlip(...blipArgs: string[]): void {
     const id = this._data.size + 1;
     // @ts-expect-error Typescript gives an error that the blipArgs array is not
     // a fixed size but that's what we want so we avoid duplicating the Blip
@@ -23,23 +23,29 @@ export class BlipTable {
     return this._data.size;
   }
 
-  ids(): IterableIterator<number> {
-    return this._data.keys();
-  }
-
-  blips(): IterableIterator<Blip> {
-    return this._data.values();
-  }
-
-  entries(): IterableIterator<[number, Blip]> {
-    return this._data.entries();
-  }
-
   get(id: number): Blip | undefined {
     return this._data.get(id)
   }
 
-  filterByQuadrant(quadrantId: string) {
+  ids(): IterableIterator<number> {
+    return this._data.keys();
+  }
+
+  // Emulate Array.map to iterate and produce an Array of results
+  // for each element in the table. The function signature of the
+  // callback mimics Array.map where the second value is the index
+  // and not the map key.
+  map(callbackfn: (value: Blip, index: number) => any): any[] {
+    let results: any[] = []
+    let resultIndex = 0;
+    this._data.forEach((blip: Blip) => {
+      results.push(callbackfn(blip, resultIndex));
+      resultIndex += 1;
+    });
+    return results;
+  }
+
+  filterByQuadrant(quadrantId: string): BlipTable {
     const filtered = new BlipTable();
     this._data.forEach((value) => {
       if (value.quadrantId == quadrantId) {
@@ -49,7 +55,7 @@ export class BlipTable {
     return filtered;
   }
 
-  filterByRing(ringTitle: string) {
+  filterByRing(ringTitle: string): BlipTable {
     const filtered = new BlipTable();
     const ringTitleLower = ringTitle.toLowerCase();
     this._data.forEach((value) => {
@@ -61,7 +67,7 @@ export class BlipTable {
   }
 };
 
-function _fillBlipMap(blipMap: BlipMap, blipPropsList: any[]) {
+function _fillBlipMap(blipMap: BlipMap, blipPropsList: any[]): void {
   blipPropsList.forEach((blipProps) => {
     blipMap.set(blipProps.id, Blip.fromObject(blipProps));
   });

@@ -57,37 +57,15 @@ describe('BlipTable addBlip', () => {
   })
 });
 
-describe('BlipTable.blips', () => {
-  test('returns all added blips', () => {
+describe('BlipTable.map', () => {
+  test('iterates through all blips and produces new array', () => {
     const numEntries = 2;
     const table = fakeBlipTable(numEntries);
-    const blips = table.blips();
 
-    expect(Array.from(blips).length).toBe(numEntries);
-    const expectedIds = [1, 2];
-    let counter = 0;
-    Array.from(blips).forEach((blip: Blip) => {
-      expect(blip.id).toBe(expectedIds[counter]);
-      counter += 1;
-    });
+    const ids = table.map((blip: Blip) => blip.id);
+    expect(ids).toEqual(Array.from(table.ids()));
   })
 });
-
-describe('BlipTable.entries', () => {
-  test('allows iteration over all elements', () => {
-    const numEntries = 3;
-    const table = fakeBlipTable(numEntries);
-
-    let count = 0;
-    for (const [_, blip] of table.entries()) {
-      count += 1;
-      expect(blip.title).toBe(`blipTitle-${count}`);
-    }
-    expect(count).toBe(numEntries);
-    expect(count).toBe(table.size);
-  })
-}
-);
 
 describe('BlipTable get', () => {
   test('return expected blip if it exists', () => {
