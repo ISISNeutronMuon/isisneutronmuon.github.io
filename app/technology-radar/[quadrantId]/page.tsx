@@ -1,8 +1,9 @@
 import PageTitle from "@/components/page-title";
 import Link from "next/link";
 import { QuadrantConfig } from "@/lib/radar/config-types";
-import { loadBlipsByQuadrant } from "@/lib/radar/jsonio";
+
 import { chartConfig, quadrantConfig } from "../config";
+import { loadRadarData } from "../loadRadarData";
 
 type Params = {
   params: {
@@ -22,22 +23,23 @@ export async function generateStaticParams() {
 export default async function RadarQuadrant({ params }: Params) {
   // guaranteed to exist due to generateStaticParams & dynamicParams=false
   const quadrantConf = quadrantConfig(params.quadrantId) as QuadrantConfig;
-  const quadrantBlips = loadBlipsByQuadrant(params.quadrantId, true);
+  const radar = loadRadarData();
+  const quadrantBlips = radar.blips.filterByQuadrant(params.quadrantId);
 
   return (
     <>
       <PageTitle title={quadrantConf.title} />
       <div className="flex flex-row justify-between mx-12">
         {chartConfig.rings.map((ring) => {
-          const ringBlips = Array.from(quadrantBlips.filterByRing(ring.title).blips());
+          const ringBlips = quadrantBlips.filterByRing(ring.title);
           return (<div key={`ring-blips-${ring.title}`} id={`ring-blips-${ring.title}`} className="mb-2">
             <h2 className={`my-3 text-base text-center text-white max-w-[5rem] px-2 py-1 mx-auto
             border-0 border-solid rounded-2xl`} style={{ backgroundColor: ring.badgeColor }}>{ring.title.toUpperCase()}</h2>
             <ul>
               {ringBlips.map((blip) =>
-                <div className="prose px-2 my-6 border-b-[1px] border-slate-400">
+                <div key={`ring-blip-title-${blip.id}`} className="prose px-2 my-6 border-b-[1px] border-slate-400">
                   <Link href={`${quadrantConf.id}/${blip.title}`}>
-                    <li key={`ring-blip-title-${blip.id}`} >{blip.title}</li>
+                    <li>{blip.title}</li>
                   </Link>
                 </div>
               )}
