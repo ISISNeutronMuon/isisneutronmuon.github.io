@@ -1,5 +1,5 @@
 import { assetUrl } from "@/app/config";
-import { ChartConfig, QuadrantConfig } from "@/lib/radar/config-types";
+import { ChartConfig, QuadrantConfig, RingConfig } from "@/lib/radar/config-types";
 
 export const chartConfig: ChartConfig = {
   sizePx: 896,
@@ -30,24 +30,24 @@ export const chartConfig: ChartConfig = {
   ],
   rings: [
     {
-      title: "Adopt",
+      title: "adopt",
       radius: 7,
-      badgeColor: "#22c55e"
+      badgeColour: "#22c55e"
     },
     {
-      title: "Trial",
+      title: "trial",
       radius: 11,
-      badgeColor: "#f59e0b"
+      badgeColour: "#f59e0b"
     },
     {
-      title: "Assess",
+      title: "assess",
       radius: 15,
-      badgeColor: "#38bdf8"
+      badgeColour: "#38bdf8"
     },
     {
-      title: "Hold",
+      title: "hold",
       radius: 17,
-      badgeColor: "#78716c"
+      badgeColour: "#78716c"
     }
   ],
   blips: {
@@ -59,6 +59,12 @@ export const chartConfig: ChartConfig = {
 // if a quadrant with that ID cannot be found
 export function quadrantConfig(quadrantId: string): QuadrantConfig | undefined {
   const configs = chartConfig.quadrants.filter((quadrant) => quadrant.id == quadrantId);
+  return (configs.length == 1) ? configs[0] : undefined;
+}
+
+// Return the ring for a given ring name or undefined
+export function ringConfig(ringId: string): RingConfig | undefined {
+  const configs = chartConfig.rings.filter((ring) => ring.title == ringId);
   return (configs.length == 1) ? configs[0] : undefined;
 }
 

@@ -4,6 +4,7 @@ import { QuadrantConfig } from "@/lib/radar/config-types";
 
 import { chartConfig, quadrantConfig } from "../config";
 import { loadRadarData } from "../loadRadarData";
+import Badge from "../components/badge";
 
 type Params = {
   params: {
@@ -11,8 +12,7 @@ type Params = {
   }
 };
 
-// Only pages that exist in _posts should return content, everything else should
-// be a 404
+// Only pages that exist as radar quadrants should be generated
 // See https://nextjs.org/docs/app/api-reference/functions/generate-static-params
 export const dynamicParams = false;
 
@@ -33,12 +33,11 @@ export default async function RadarQuadrant({ params }: Params) {
         {chartConfig.rings.map((ring) => {
           const ringBlips = quadrantBlips.filterByRing(ring.title);
           return (<div key={`ring-blips-${ring.title}`} id={`ring-blips-${ring.title}`} className="mb-2">
-            <h2 className={`my-3 text-base text-center text-white max-w-[5rem] px-2 py-1 mx-auto
-            border-0 border-solid rounded-2xl`} style={{ backgroundColor: ring.badgeColor }}>{ring.title.toUpperCase()}</h2>
+            <Badge title={ring.title} colour={ring.badgeColour} />
             <ul>
               {ringBlips.map((blip) =>
                 <div key={`ring-blip-title-${blip.id}`} className="prose px-2 my-6 border-b-[1px] border-slate-400">
-                  <Link href={`${quadrantConf.id}/${blip.title}`}>
+                  <Link href={`${quadrantConf.id}/${blip.refname}`}>
                     <li>{blip.title}</li>
                   </Link>
                 </div>

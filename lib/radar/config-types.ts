@@ -11,7 +11,7 @@ export type QuadrantConfig = {
 export type RingConfig = {
   title: string,
   radius: number,
-  badgeColor: string;
+  badgeColour: string;
 };
 
 export type BlipConfig = {

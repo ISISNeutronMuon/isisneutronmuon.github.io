@@ -23,8 +23,17 @@ export class BlipTable {
     return this._data.size;
   }
 
-  get(id: number): Blip | undefined {
+  getById(id: number): Blip | undefined {
     return this._data.get(id)
+  }
+
+  getByRef(refname: string): Blip | undefined {
+    for (const [id, blip] of this._data) {
+      if (blip.refname == refname)
+        return blip;
+    }
+
+    return undefined;
   }
 
   ids(): IterableIterator<number> {

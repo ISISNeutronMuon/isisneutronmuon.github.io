@@ -49,7 +49,7 @@ describe('BlipTable addBlip', () => {
   test("addBlip assigns correct arguments to new blip", () => {
     const table = fakeBlipTable(1);
 
-    const blip = table.get(1);
+    const blip = table.getById(1);
     expect(blip?.title).toBe("blipTitle-1");
     expect(blip?.quadrantId).toBe("quadrant-1");
     expect(blip?.ring).toBe("ring-1");
@@ -68,15 +68,25 @@ describe('BlipTable.map', () => {
 });
 
 describe('BlipTable get', () => {
-  test('return expected blip if it exists', () => {
+  test('getById returnd expected blip if it exists', () => {
     const table = fakeBlipTable(2);
 
-    expect(table.get(2)?.title).toBe('blipTitle-2');
+    expect(table.getById(2)?.title).toBe('blipTitle-2');
   })
-  test('return undefined if id does not exist', () => {
+  test('getById return undefined if id does not exist', () => {
     const table = fakeBlipTable(2);
 
-    expect(table.get(3)).toBe(undefined);
+    expect(table.getById(3)).toBe(undefined);
+  })
+  test('getByRef returnd expected blip if it exists', () => {
+    const table = fakeBlipTable(2);
+
+    expect(table.getByRef('blip-ref-2')?.title).toBe('blipTitle-2');
+  })
+  test('getByRef return undefined if id does not exist', () => {
+    const table = fakeBlipTable(2);
+
+    expect(table.getByRef('unknown')).toBe(undefined);
   })
 });
 

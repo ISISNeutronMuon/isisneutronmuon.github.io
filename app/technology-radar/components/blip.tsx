@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Blip as BlipModel } from "@/lib/radar/models/blip";
 import BlipTooltipHandler from "./blipTooltipHandler";
 
@@ -16,20 +18,23 @@ export default function Blip({ blip, centre_x, centre_y, radius, colour }: Param
   const blipId = `blip-${blip.id}`, markerId = `blip-symbol-${blip.id}`, tooltipId = `blip-tooltip-${blip.id}`;
   const tooltipBox = calculateTooltipBoxDimensions(blip.title);
 
-  return (<g id={blipId}>
-    <g id={markerId} >
-      <circle cx={centre_x} cy={centre_y} r={radius} fill={colour} />
-      <text x={centre_x} y={centre_y} dy="1" textAnchor="middle" dominantBaseline="middle"
-        fill="white" style={{ fontSize: `${tooltipBox.fontSize}` }}>{blip.id}</text>
+  return (
+    <g id={blipId}>
+      <Link href={`/technology-radar/${blip.quadrantId}/${blip.refname}`}>
+        <g id={markerId} >
+          <circle cx={centre_x} cy={centre_y} r={radius} fill={colour} />
+          <text x={centre_x} y={centre_y} dy="1" textAnchor="middle" dominantBaseline="middle"
+            fill="white" style={{ fontSize: `${tooltipBox.fontSize}` }}>{blip.id}</text>
+        </g>
+      </Link>
+      <g id={tooltipId} style={{ display: "none" }}>
+        <rect x={centre_x - 0.5 * tooltipBox.width} y={centre_y - (tooltipBox.margin + radius + tooltipBox.height)}
+          width={tooltipBox.width} height={tooltipBox.height} rx={tooltipBoxRadius} ry={tooltipBoxRadius} />
+        <text x={centre_x} y={centre_y - (tooltipBox.margin + radius + 0.5 * tooltipBox.height)}
+          textAnchor="middle" dominantBaseline="middle" style={{ fontSize: `${tooltipBox.fontSize}` }} fill="white">{blip.title}</text>
+      </g>
+      <BlipTooltipHandler targetId={blipId} tooltipId={tooltipId} />
     </g>
-    <g id={tooltipId} style={{ display: "none" }}>
-      <rect x={centre_x - 0.5 * tooltipBox.width} y={centre_y - (tooltipBox.margin + radius + tooltipBox.height)}
-        width={tooltipBox.width} height={tooltipBox.height} rx={tooltipBoxRadius} ry={tooltipBoxRadius} />
-      <text x={centre_x} y={centre_y - (tooltipBox.margin + radius + 0.5 * tooltipBox.height)}
-        textAnchor="middle" dominantBaseline="middle" style={{ fontSize: `${tooltipBox.fontSize}` }} fill="white">{blip.title}</text>
-    </g>
-    <BlipTooltipHandler targetId={blipId} tooltipId={tooltipId} />
-  </g>
   )
 }
 
