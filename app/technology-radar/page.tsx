@@ -38,7 +38,6 @@ export default function TechnologyRadar() {
     new QuadrantView(chartConfig.quadrants[3], { x: halfWidth - axisWidthHalfPx, y: halfWidth + axisWidthHalfPx }, 'bottom-left'),
   ];
 
-  const radar = loadRadarData();
   return (<>
     <PageTitle title={pageTitle(radar.version)} />
     <svg width={size} height={size} xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +45,10 @@ export default function TechnologyRadar() {
       {drawRingLabels(chartConfig.rings, { x: halfWidth, y: halfWidth }, axisWidthPx, xScale)}
       {drawAllBlips(radar, quadrants, chartConfig.rings, chartConfig.blips.radius, xScale)}
     </svg>
-    <p className="float-right text-sm">{`Published: ${Intl.DateTimeFormat('en-GB', dateFormatOptions).format(radar.releaseDate)}`}</p>
+    <div className="w-full mb-2">
+      <p className="text-right text-sm">{`Published: ${Intl.DateTimeFormat('en-GB', dateFormatOptions).format(radar.releaseDate)}`}</p>
+    </div>
+    <hr className="mb-4" />
   </>
   )
 }
