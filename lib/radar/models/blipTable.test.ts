@@ -57,8 +57,20 @@ describe('BlipTable addBlip', () => {
   })
 });
 
-describe('BlipTable.map', () => {
-  test('iterates through all blips and produces new array', () => {
+describe('BlipTable map-like functions', () => {
+  test('ids returns iterable of all ids', () => {
+    const numEntries = 3;
+    const table = fakeBlipTable(numEntries);
+
+    expect([1, 2, 3]).toEqual(Array.from(table.ids()));
+  })
+  test('values returns iterable of all Blips', () => {
+    const numEntries = 3;
+    const table = fakeBlipTable(numEntries);
+
+    expect([table.getById(1), table.getById(2), table.getById(3)]).toEqual(Array.from(table.values()));
+  })
+  test('map iterates through all blips and produces new array', () => {
     const numEntries = 2;
     const table = fakeBlipTable(numEntries);
 

@@ -40,6 +40,10 @@ export class BlipTable {
     return this._data.keys();
   }
 
+  values(): IterableIterator<Blip> {
+    return this._data.values();
+  }
+
   // Emulate Array.map to iterate and produce an Array of results
   // for each element in the table. The function signature of the
   // callback mimics Array.map where the second value is the index

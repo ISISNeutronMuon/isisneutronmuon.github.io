@@ -9,6 +9,7 @@ import { BlipPositionGenerator } from "@/lib/radar/util/blipPositionGenerator";
 import { Quadrant as QuadrantView } from "@/lib/radar/view/quadrant";
 
 import BlipMarker from "./components/blipMarker";
+import BlipTableView from "./components/blipTable";
 import { chartConfig, technologyRadarQuadrantUrl } from "./config";
 
 import radarJson from '@/public/radar.json'
@@ -49,10 +50,11 @@ export default function TechnologyRadar() {
       {drawRingLabels(chartConfig.rings, { x: halfWidth, y: halfWidth }, axisWidthPx, xScale)}
       {drawAllBlips(radar, quadrants, chartConfig.rings, chartConfig.blips.radius, xScale)}
     </svg>
-    <div className="w-full mb-2">
+    <div className="w-full mb-6">
       <p className="text-right text-sm">{`Published: ${Intl.DateTimeFormat('en-GB', dateFormatOptions).format(radar.releaseDate)}`}</p>
     </div>
-    <hr className="mb-4" />
+    <hr className="mb-8" />
+    <BlipTableView />
   </>
   )
 }
