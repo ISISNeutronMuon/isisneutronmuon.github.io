@@ -36,14 +36,14 @@ const jsonTestStringWithBlips = `
 
 describe('jsonToRadar', () => {
   test('An string with empty blip array is accepted', () => {
-    const radar = jsonToRadar(jsonTestStringEmptyBlips);
+    const radar = jsonToRadar(JSON.parse(jsonTestStringEmptyBlips));
 
     expect(radar.version).toBe("3");
     expect(radar.releaseDate).toEqual(new Date("2023-11-02T00:00:00.000Z"));
     expect(radar.blips.size).toEqual(0);
   })
   test('An string with non-empty blip array is accepted', () => {
-    const radar = jsonToRadar(jsonTestStringWithBlips);
+    const radar = jsonToRadar(JSON.parse(jsonTestStringWithBlips));
 
     expect(radar.version).toBe("3");
     expect(radar.releaseDate).toEqual(new Date("2023-11-02T00:00:00.000Z"));

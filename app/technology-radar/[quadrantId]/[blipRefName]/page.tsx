@@ -5,7 +5,11 @@ import { Blip } from "@/lib/radar/models/blip";
 
 import Badge from "../../components/badge";
 import { quadrantConfig, ringConfig } from "../../config";
-import { loadRadarData } from "../../loadRadarData";
+
+import radarJSON from '@/public/radar.json';
+import { jsonToRadar } from "@/lib/radar/io/json";
+
+const radar = jsonToRadar(radarJSON);
 
 type Params = {
   params: {
@@ -19,11 +23,10 @@ type Params = {
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return loadRadarData().blips.map((blip) => ({ quadrantId: blip.quadrantId, blipRefName: blip.refname }));
+  return radar.blips.map((blip) => ({ quadrantId: blip.quadrantId, blipRefName: blip.refname }));
 }
 
 export default async function RadarQuadrant({ params }: Params) {
-  const radar = loadRadarData();
   const blip = radar.blips.getByRef(params.blipRefName) as Blip;
   const quadrantConf = quadrantConfig(blip.quadrantId) as QuadrantConfig;
   const ringConf = ringConfig(blip.ring) as RingConfig;

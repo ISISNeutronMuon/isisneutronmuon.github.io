@@ -24,10 +24,10 @@ export function radarToJSON(radar: Radar): string {
   })
 }
 
-export function jsonToRadar(jsonString: string): Radar {
-  const jsonObject = JSON.parse(jsonString);
+export function jsonToRadar(jsonObject: any): Radar {
   return new Radar(jsonObject.version, jsonObject.releaseDate, _fromObjectList(jsonObject.blips));
 }
+
 
 // Take the table of blips and serialize it as a list of objects
 function _toObjectList(table: BlipTable): any[] {

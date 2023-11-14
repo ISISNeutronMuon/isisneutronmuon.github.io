@@ -1,4 +1,3 @@
-import { assetUrl } from "@/app/config";
 import { ChartConfig, QuadrantConfig, RingConfig } from "@/lib/radar/config-types";
 
 export const chartConfig: ChartConfig = {
@@ -66,8 +65,4 @@ export function quadrantConfig(quadrantId: string): QuadrantConfig | undefined {
 export function ringConfig(ringId: string): RingConfig | undefined {
   const configs = chartConfig.rings.filter((ring) => ring.title == ringId);
   return (configs.length == 1) ? configs[0] : undefined;
-}
-
-export let radarJsonUrl = () => {
-  return assetUrl('radar.json');
 }

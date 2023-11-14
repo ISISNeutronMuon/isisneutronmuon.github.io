@@ -10,13 +10,17 @@ import { Quadrant as QuadrantView } from "@/lib/radar/view/quadrant";
 
 import BlipMarker from "./components/blipMarker";
 import { chartConfig } from "./config";
-import { loadRadarData } from "./loadRadarData";
+
+import radarJson from '@/public/radar.json'
+import { jsonToRadar } from "@/lib/radar/io/json";
 
 const dateFormatOptions: Intl.DateTimeFormatOptions = {
   year: "numeric",
   month: "long",
   day: "2-digit",
 };
+
+const radar = jsonToRadar(radarJson);
 
 let pageTitle = (radarVersion: string) => `Technology Radar #${radarVersion}`
 

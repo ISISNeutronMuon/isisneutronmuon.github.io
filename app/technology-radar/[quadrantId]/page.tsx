@@ -3,8 +3,12 @@ import Link from "next/link";
 import { QuadrantConfig } from "@/lib/radar/config-types";
 
 import { chartConfig, quadrantConfig } from "../config";
-import { loadRadarData } from "../loadRadarData";
 import Badge from "../components/badge";
+
+import radarJSON from '@/public/radar.json';
+import { jsonToRadar } from "@/lib/radar/io/json";
+
+const radar = jsonToRadar(radarJSON);
 
 type Params = {
   params: {
@@ -23,7 +27,6 @@ export async function generateStaticParams() {
 export default async function RadarQuadrant({ params }: Params) {
   // guaranteed to exist due to generateStaticParams & dynamicParams=false
   const quadrantConf = quadrantConfig(params.quadrantId) as QuadrantConfig;
-  const radar = loadRadarData();
   const quadrantBlips = radar.blips.filterByQuadrant(params.quadrantId);
 
   return (
