@@ -4,7 +4,11 @@ import { QuadrantConfig, RingConfig } from "@/lib/radar/config-types";
 import { Blip } from "@/lib/radar/models/blip";
 
 import Badge from "../../components/badge";
-import { quadrantConfig, ringConfig } from "../../config";
+import {
+  quadrantConfig,
+  ringConfig,
+  technologyRadarQuadrantUrl
+} from "../../config";
 
 import radarJSON from '@/public/radar.json';
 import { jsonToRadar } from "@/lib/radar/io/json";
@@ -36,7 +40,7 @@ export default async function RadarQuadrant({ params }: Params) {
     <>
       <div className="flex flex-row place-content-between items-center">
         <PageTitle title={blip.title} />
-        <Badge title={quadrantConf.title} colour={quadrantConf.colour} href={`/technology-radar/${quadrantConf.id}`} />
+        <Badge title={quadrantConf.title} colour={quadrantConf.colour} href={technologyRadarQuadrantUrl(blip)} />
       </div>
       <p className="inline text-lg">Ring: </p><Badge className="inline" title={ringConf.title} colour={ringConf.badgeColour} />
       <div className="prose mt-8">

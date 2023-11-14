@@ -1,4 +1,22 @@
 import { ChartConfig, QuadrantConfig, RingConfig } from "@/lib/radar/config-types";
+import { Blip } from "@/lib/radar/models/blip";
+
+export const technologyRadarBasename = '/technology-radar';
+
+export type BlipUrlParams = {
+  blip?: Blip,
+  quadrantId?: string,
+  refName?: string
+}
+
+export const technologyRadarQuadrantUrl =
+  (params: BlipUrlParams) => `${technologyRadarBasename}/${params.blip ? params.blip.quadrantId : params.quadrantId}`
+
+export const technologyRadarBlipUrl = (params: BlipUrlParams) => {
+  const quadrantId = params.blip ? params.blip.quadrantId : params.quadrantId;
+  const refName = params.blip ? params.blip.refName : params.refName;
+  return `${technologyRadarQuadrantUrl({ quadrantId })}/${refName}`
+}
 
 export const chartConfig: ChartConfig = {
   sizePx: 896,

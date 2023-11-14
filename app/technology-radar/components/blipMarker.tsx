@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Blip as BlipModel } from "@/lib/radar/models/blip";
+import { technologyRadarBlipUrl } from "../config";
 import BlipTooltipHandler from "./blipTooltipHandler";
 
 type Params = {
@@ -22,7 +23,7 @@ export default function BlipMarker({ blip, centre_x, centre_y, radius, colour }:
 
   return (
     <g id={blipId}>
-      <Link href={`/technology-radar/${blip.quadrantId}/${blip.refName}`}>
+      <Link href={technologyRadarBlipUrl(blip)}>
         <g id={markerId} >
           <circle cx={centre_x} cy={centre_y} r={radius} fill={colour} />
           <text x={centre_x} y={centre_y} dy="1" textAnchor="middle" dominantBaseline="middle"

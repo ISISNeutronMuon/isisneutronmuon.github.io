@@ -2,7 +2,12 @@ import PageTitle from "@/components/page-title";
 import Link from "next/link";
 import { QuadrantConfig } from "@/lib/radar/config-types";
 
-import { chartConfig, quadrantConfig } from "../config";
+import {
+  chartConfig,
+  quadrantConfig,
+  technologyRadarBlipUrl,
+  technologyRadarQuadrantUrl
+} from "../config";
 import Badge from "../components/badge";
 
 import radarJSON from '@/public/radar.json';
@@ -40,7 +45,7 @@ export default async function RadarQuadrant({ params }: Params) {
             <ul>
               {ringBlips.map((blip) =>
                 <div key={`ring-blip-title-${blip.id}`} className="prose px-2 my-6 border-b-[1px] border-slate-400">
-                  <Link href={`${quadrantConf.id}/${blip.refName}`}>
+                  <Link href={technologyRadarBlipUrl(blip)}>
                     <li>{blip.title}</li>
                   </Link>
                 </div>

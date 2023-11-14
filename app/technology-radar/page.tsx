@@ -9,7 +9,7 @@ import { BlipPositionGenerator } from "@/lib/radar/util/blipPositionGenerator";
 import { Quadrant as QuadrantView } from "@/lib/radar/view/quadrant";
 
 import BlipMarker from "./components/blipMarker";
-import { chartConfig } from "./config";
+import { chartConfig, technologyRadarQuadrantUrl } from "./config";
 
 import radarJson from '@/public/radar.json'
 import { jsonToRadar } from "@/lib/radar/io/json";
@@ -101,7 +101,8 @@ function drawQuadrant(quadrant: QuadrantView, rings: RingConfig[],
 
 
   return (
-    <Link href={`/technology-radar/${config.id}`} key={`quadrant-link-${config.id}`} id={`quadrant-${config.id}`}>
+    <Link href={technologyRadarQuadrantUrl({ quadrantId: config.id })}
+      key={`quadrant-link-${config.id}`} id={`quadrant-${config.id}`}>
       <g key={`quadrant-${config.id}`} transform={`translate(${centre.x} ${centre.y})`}>
         <rect x={linkRectOrigin.x} y={linkRectOrigin.y} width={outerRadiusPx} height={outerRadiusPx} fill="white"
           data-cy={`quadrant-rect-${config.id}`} />
