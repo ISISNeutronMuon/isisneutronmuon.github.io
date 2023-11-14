@@ -10,7 +10,7 @@ describe('BlipTable construction tests', () => {
     const blipProps = [
       {
         id: 1,
-        refname: "refname-1",
+        refName: "refname-1",
         title: "title 1",
         quadrantId: "quadrant-1",
         ring: "ring-1",
@@ -18,7 +18,7 @@ describe('BlipTable construction tests', () => {
       },
       {
         id: 2,
-        refname: "refname-2",
+        refName: "refname-2",
         title: "title 2",
         quadrantId: "quadrant-2",
         ring: "ring-2",

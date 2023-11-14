@@ -40,7 +40,7 @@ export default async function RadarQuadrant({ params }: Params) {
             <ul>
               {ringBlips.map((blip) =>
                 <div key={`ring-blip-title-${blip.id}`} className="prose px-2 my-6 border-b-[1px] border-slate-400">
-                  <Link href={`${quadrantConf.id}/${blip.refname}`}>
+                  <Link href={`${quadrantConf.id}/${blip.refName}`}>
                     <li>{blip.title}</li>
                   </Link>
                 </div>

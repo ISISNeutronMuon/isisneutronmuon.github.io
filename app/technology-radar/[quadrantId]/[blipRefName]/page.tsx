@@ -23,7 +23,7 @@ type Params = {
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return radar.blips.map((blip) => ({ quadrantId: blip.quadrantId, blipRefName: blip.refname }));
+  return radar.blips.map((blip) => ({ quadrantId: blip.quadrantId, blipRefName: blip.refName }));
 }
 
 export default async function RadarQuadrant({ params }: Params) {

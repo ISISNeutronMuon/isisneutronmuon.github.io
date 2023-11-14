@@ -27,9 +27,9 @@ export class BlipTable {
     return this._data.get(id)
   }
 
-  getByRef(refname: string): Blip | undefined {
-    for (const [id, blip] of this._data) {
-      if (blip.refname == refname)
+  getByRef(refName: string): Blip | undefined {
+    for (const [_, blip] of this._data) {
+      if (blip.refName == refName)
         return blip;
     }
 

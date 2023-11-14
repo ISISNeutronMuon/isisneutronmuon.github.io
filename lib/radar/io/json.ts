@@ -8,7 +8,7 @@ import { Radar } from "../models/radar";
 //   blips: [
 //     {
 //       id: number,
-//       refname: string,
+//       refName: string,
 //       title: string,
 //       quadrantId: string,
 //       ring: string,
