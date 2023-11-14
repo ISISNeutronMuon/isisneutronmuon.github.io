@@ -10,7 +10,7 @@ type Params = {
 
 export default async function Badge({ title, colour, className, href }: Params) {
   let badgeJSX = () => {
-    return (<h2 className={`my-3 text-base text-center text-white max-w-[5rem] px-2
+    return (<h2 className={`my-3 text-base text-center text-white max-w-[10rem] px-2
   py-1 border-0 border-solid rounded-2xl ${className || ""}`} style={{ backgroundColor: colour }}>
       {title.toUpperCase()}
     </h2>)
