@@ -8,7 +8,7 @@ import { Radar } from "@/lib/radar/models/radar";
 import { BlipPositionGenerator } from "@/lib/radar/util/blipPositionGenerator";
 import { Quadrant as QuadrantView } from "@/lib/radar/view/quadrant";
 
-import Blip from "./components/blip";
+import BlipMarker from "./components/blipMarker";
 import { chartConfig } from "./config";
 import { loadRadarData } from "./loadRadarData";
 
@@ -158,7 +158,7 @@ function drawBlipsInQuadrant(radar: Radar, quadrant: QuadrantView, rings: RingCo
           innerRadius, outerRadius, blipRadius);
         return ringBlips.map((blip, index) => {
           const centre = centres[index];
-          return (<Blip key={`blip-${blip.id}`} blip={blip}
+          return (<BlipMarker key={`blip-${blip.id}`} blip={blip}
             centre_x={toPixels(centre.x, xScale)} centre_y={toPixels(centre.y, xScale)}
             radius={blipRadiusPx} colour={quadrantConfig.colour} />)
         });

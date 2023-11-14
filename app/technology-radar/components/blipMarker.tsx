@@ -14,8 +14,10 @@ type Params = {
 // Radius of corner in pixels of tooltipBox
 const tooltipBoxRadius = 5;
 
-export default function Blip({ blip, centre_x, centre_y, radius, colour }: Params) {
-  const blipId = `blip-${blip.id}`, markerId = `blip-symbol-${blip.id}`, tooltipId = `blip-tooltip-${blip.id}`;
+export default function BlipMarker({ blip, centre_x, centre_y, radius, colour }: Params) {
+  const blipId = `blip-${blip.id}`,
+    markerId = `blip-symbol-${blip.id}`,
+    tooltipId = `blip-tooltip-${blip.id}`;
   const tooltipBox = calculateTooltipBoxDimensions(blip.title);
 
   return (
