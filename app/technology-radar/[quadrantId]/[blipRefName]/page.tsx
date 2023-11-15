@@ -1,4 +1,4 @@
-import PageTitle from "@/components/page-title";
+import Heading from "@/components/heading";
 import { markdownToHtml } from "@/lib/markdown";
 import { QuadrantConfig, RingConfig } from "@/lib/radar/config-types";
 import { Blip } from "@/lib/radar/models/blip";
@@ -39,7 +39,7 @@ export default async function RadarQuadrant({ params }: Params) {
   return (
     <>
       <div className="flex flex-row place-content-between items-center">
-        <PageTitle title={blip.title} />
+        <Heading level={1} title={blip.title} />
         <Badge title={quadrantConf.title} colour={quadrantConf.colour} href={technologyRadarQuadrantUrl(blip)} />
       </div>
       <p className="inline text-lg">Ring: </p><Badge className="inline" title={ringConf.title} colour={ringConf.badgeColour} />

@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import Link from "next/link";
 
-import PageTitle from "@/components/page-title";
+import Heading from "@/components/heading";
 import { RingConfig } from "@/lib/radar/config-types";
 import { BlipTable } from "@/lib/radar/models/blipTable";
 import { Radar } from "@/lib/radar/models/radar";
@@ -44,7 +44,7 @@ export default function TechnologyRadar() {
   ];
 
   return (<>
-    <PageTitle title={pageTitle(radar.version)} />
+    <Heading level={1} title={pageTitle(radar.version)} />
     <svg width={size} height={size} xmlns="http://www.w3.org/2000/svg">
       {drawQuadrants(quadrants, chartConfig.rings, xScale)}
       {drawRingLabels(chartConfig.rings, { x: halfWidth, y: halfWidth }, axisWidthPx, xScale)}

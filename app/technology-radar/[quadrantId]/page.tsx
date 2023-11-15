@@ -1,12 +1,11 @@
-import PageTitle from "@/components/page-title";
+import Heading from "@/components/heading";
 import Link from "next/link";
 import { QuadrantConfig } from "@/lib/radar/config-types";
 
 import {
   chartConfig,
   quadrantConfig,
-  technologyRadarBlipUrl,
-  technologyRadarQuadrantUrl
+  technologyRadarBlipUrl
 } from "../config";
 import Badge from "../components/badge";
 
@@ -36,7 +35,7 @@ export default async function RadarQuadrant({ params }: Params) {
 
   return (
     <>
-      <PageTitle title={quadrantConf.title} />
+      <Heading level={1} title={quadrantConf.title} />
       <div className="flex flex-row justify-between mx-12">
         {chartConfig.rings.map((ring) => {
           const ringBlips = quadrantBlips.filterByRing(ring.title);
