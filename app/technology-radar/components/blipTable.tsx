@@ -65,8 +65,8 @@ const equalityFilter: FilterFn<any> = (row, columnId, value) => {
 }
 
 export default function BlipTable() {
-  const columns = createColumnDefs();
-  const data = createDataMemo()
+  const columns = CreateColumnDefs();
+  const data = CreateDataMemo()
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   )
@@ -88,7 +88,7 @@ export default function BlipTable() {
 
   return (
     <div className="prose min-w-[100%]">
-      <table className="w-[95%] mx-auto">
+      <table className="w-[90%] mx-auto">
         {TableHead(table)}
         {TableBody(table)}
       </table>
@@ -145,7 +145,7 @@ function TableBody(table: Table<Blip>) {
 }
 
 // Create the React Memo to cache the blips array between renders
-function createDataMemo() {
+function CreateDataMemo() {
   return React.useMemo(
     () => Array.from(radar.blips.values()),
     []
@@ -153,7 +153,7 @@ function createDataMemo() {
 }
 
 // Create the columns for the table
-function createColumnDefs() {
+function CreateColumnDefs() {
   const columnHelper = createColumnHelper<Blip>();
 
   const columns = React.useMemo(
@@ -202,7 +202,7 @@ function createColumnDefs() {
         }
       ),
     ],
-    []
+    [columnHelper]
   );
   return columns;
 }
