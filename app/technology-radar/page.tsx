@@ -50,11 +50,14 @@ export default function TechnologyRadar() {
       {drawRingLabels(chartConfig.rings, { x: halfWidth, y: halfWidth }, axisWidthPx, xScale)}
       {drawAllBlips(radar, quadrants, chartConfig.rings, chartConfig.blips.radius, xScale)}
     </svg>
-    <div className="w-full mb-6">
+    <div className="w-full mb-10">
       <p className="text-right text-sm">{`Published: ${Intl.DateTimeFormat('en-GB', dateFormatOptions).format(radar.releaseDate)}`}</p>
     </div>
-    <hr className="mb-8" />
-    <BlipTableView />
+    <hr className="mb-4" />
+    <div>
+      <Heading level={2} title="Blip search" />
+      <BlipTableView />
+    </div>
   </>
   )
 }
