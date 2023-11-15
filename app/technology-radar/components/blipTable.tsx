@@ -2,7 +2,7 @@
 // This implementation is heavily based on the example within the TanStack
 // source code:
 // https://github.com/TanStack/table/blob/a1e9732e6fc3446a2ae80db72a1f2b46a5c11e46/examples/react/filters/src/main.tsx#
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import {
   useReactTable,
@@ -11,6 +11,7 @@ import {
   getFilteredRowModel,
   getFacetedRowModel,
   getFacetedUniqueValues,
+  getSortedRowModel,
   Column,
   ColumnFiltersState,
   FilterFn,
@@ -84,7 +85,13 @@ export default function BlipTable() {
     getFilteredRowModel: getFilteredRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    getSortedRowModel: getSortedRowModel()
   });
+  // Sort by left-hand column
+  // Users cannot currently resort anything
+  useEffect(() => {
+    table.setSorting([{ id: columns[0].id as string, desc: false }]);
+  }, [table]);
 
   return (
     <div className="prose min-w-[100%]">
@@ -159,6 +166,13 @@ function CreateColumnDefs() {
   const columns = React.useMemo(
     () => [
       columnHelper.accessor(
+        "id",
+        {
+          header: "Id",
+          filterFn: equalityFilter
+        }
+      ),
+      columnHelper.accessor(
         "title",
         {
           header: 'Title',
@@ -170,13 +184,6 @@ function CreateColumnDefs() {
             </span>
           ),
           filterFn: fuzzyFilter
-        }
-      ),
-      columnHelper.accessor(
-        "id",
-        {
-          header: "Id",
-          filterFn: equalityFilter
         }
       ),
       columnHelper.accessor(
