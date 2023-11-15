@@ -53,6 +53,7 @@
     "serve": "^14.2.1",
     "start-server-and-test": "^2.0.1",
     "ts-jest": "^29.1.1",
-    "tsx": "^3.14.0"
+    "tsx": "^3.14.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"
   }
 }
