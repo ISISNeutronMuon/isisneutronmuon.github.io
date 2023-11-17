@@ -1,5 +1,5 @@
 ---
-title: Continuous Delivery
+title: "Continuous Delivery"
 quadrant: techniques
 ring: adopt
 ---

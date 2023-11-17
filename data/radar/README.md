@@ -2,14 +2,20 @@
 
 ## Rings
 
-- *Adopt* represents blips that the division has had good experience with and
-  would recommend using them on an appropriate project.
-- *Trial* represents blips that we do not have direct experience with but they
-  are being adopted by the industry and are being trialing with limited scope.
-- *Assess* represents blips that look interesting and we want to keep an eye on
-  them. They have not been trialed but would be good candidates for a
-  "Try It Out Day".
-- *Hold* represents blips that might be proven and accepted by industry but our
-  given past experience we would not recommend them on new projects. Existing
-  projects still need to be supported and a blip in hold should not be a sole
-  decision for scrapping a project.
+**Hold**\
+  Generally it advised not to start anything new with this technology/technique.
+  Existing projects still need to be supported and a blip in hold should not be a sole decision for scrapping a project.
+
+**Assess**\
+  A technology or technique that looks interesting and is worth some investment
+  of effort to understand how it may impact the division and ISIS.
+  They are good candidates for a "Try It Out Day".
+
+**Trial**\
+  A technology or technique that is worth pursuing and trialing on a
+  low-risk project. A trial project should have begun before a blip is placed
+  in this ring.
+
+**Adopt**\
+  A strong recommendation that this should be adopted assuming it is appropriate
+  for a given project.

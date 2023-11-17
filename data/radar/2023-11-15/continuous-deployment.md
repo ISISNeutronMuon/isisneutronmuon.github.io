@@ -1,5 +1,5 @@
 ---
-title: Continuous Deployment
+title: "Continuous Deployment"
 quadrant: techniques
 ring: assess
 ---
