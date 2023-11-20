@@ -5,8 +5,8 @@ ring: trial
 ---
 
 [ArgoCD](https://argoproj.github.io/cd/) is a continuous delivery tool for
-Kubernetes based on [GitOps](./gitops.md). The required state for an application
-is stored in a [Git](./git.md) repository and ArgoCD automates the deployment to
+Kubernetes based on GitOps. The required state for an application
+is stored in a Git repository and ArgoCD automates the deployment to
 the target environments. A UI is provided enabling
 
 - continuous monitoring deployments
