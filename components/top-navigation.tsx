@@ -4,10 +4,11 @@ import { siteTitle } from "@/lib/consts"
 
 const headerItems = [
   { title: "About", href: "/about" },
-  { title: "Releases", href: "/releases" }
+  { title: "Releases", href: "/releases" },
+  { title: "Technology Radar", href: "/technology-radar" }
 ];
 
-export default function Header() {
+export default function TopNavigation() {
   return (
     <header
       className="border-t-8 border-t-neutral-600 border-b border-b-stone-200"

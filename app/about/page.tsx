@@ -1,11 +1,11 @@
+import Heading from '@/components/heading'
+
 import MDXContent, { frontmatter } from './about.md'
 
 export default function Page() {
   return (<>
     <article className="prose">
-      <header className="mb-8">
-        <h1>{frontmatter.title}</h1>
-      </header>
+      <Heading level={1}>{frontmatter.title}</Heading>
       <MDXContent />
     </article>
   </>
