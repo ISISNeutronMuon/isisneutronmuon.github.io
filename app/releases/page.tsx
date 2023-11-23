@@ -30,7 +30,7 @@ let releasesJSX = async () => {
 
 export default async function Releases() {
   return (<>
-    <Heading level={1} title="Releases" />
+    <Heading level={1}>Releases</Heading>
     <div className="flex flex-col flex-wrap">
       <div>
         <h3 className="text-2xl font-normal mb-4">Scientific Software</h3>

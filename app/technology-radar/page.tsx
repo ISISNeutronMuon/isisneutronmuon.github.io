@@ -23,8 +23,6 @@ const dateFormatOptions: Intl.DateTimeFormatOptions = {
 
 const radar = jsonToRadar(radarJson);
 
-let pageTitle = (radarVersion: string) => `Technology Radar #${radarVersion}`
-
 export default function TechnologyRadar() {
   // Create a d3 scale to map from pixels in the browser to the point scale defined
   // by the domain
@@ -44,22 +42,28 @@ export default function TechnologyRadar() {
   ];
 
   return (<>
-    <Heading level={1} title={pageTitle(radar.version)} />
+    {pageHeading(radar)}
     <svg width={size} height={size} xmlns="http://www.w3.org/2000/svg">
       {drawQuadrants(quadrants, chartConfig.rings, xScale)}
       {drawRingLabels(chartConfig.rings, { x: halfWidth, y: halfWidth }, axisWidthPx, xScale)}
       {drawAllBlips(radar, quadrants, chartConfig.rings, chartConfig.blips.radius, xScale)}
     </svg>
     <div className="w-full mb-10">
-      <p className="text-right text-sm">{`Published: ${Intl.DateTimeFormat('en-GB', dateFormatOptions).format(radar.releaseDate)}`}</p>
+      <p className="text-right text-sm">
+        {`Published: ${Intl.DateTimeFormat('en-GB', dateFormatOptions).format(radar.releaseDate)}`}
+      </p>
     </div>
     <hr className="mb-4" />
     <div>
-      <Heading level={2} title="Blip search" />
+      <Heading level={2}>Blip search</Heading>
       <BlipTableView />
     </div>
   </>
   )
+}
+
+function pageHeading(radar: Radar) {
+    return <Heading level={1}>Technology Radar (<span className="italic">v{radar.version}</span>)</Heading>
 }
 
 // Take a value on the scale defined by d3 and calculate the pixel

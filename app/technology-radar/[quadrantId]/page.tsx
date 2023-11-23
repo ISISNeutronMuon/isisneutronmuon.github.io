@@ -35,7 +35,7 @@ export default async function RadarQuadrant({ params }: Params) {
 
   return (
     <>
-      <Heading level={1} title={quadrantConf.title} />
+      <Heading level={1}>{quadrantConf.title}</Heading>
       <div className="flex flex-row justify-between mx-12">
         {chartConfig.rings.map((ring) => {
           const ringBlips = quadrantBlips.filterByRing(ring.title);

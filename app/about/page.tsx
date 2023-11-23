@@ -5,7 +5,7 @@ import MDXContent, { frontmatter } from './about.md'
 export default function Page() {
   return (<>
     <article className="prose">
-      <Heading level={1} title={frontmatter.title} />
+      <Heading level={1}>{frontmatter.title}</Heading>
       <MDXContent />
     </article>
   </>
