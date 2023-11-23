@@ -1,13 +1,18 @@
-import { readFileSync, readdirSync, PathLike } from "fs";
+import { existsSync, readFileSync, readdirSync } from "fs";
 import { basename, join } from "path";
 import { readMarkdownWithFrontmatter } from "@/lib/markdown";
 
 import { BlipTable } from "../models/blipTable";
+import { PreviewVersionId } from "../models/radar"
 
 const BLIP_FILE_EXT = '.md';
 
-// A radar version is a separate directory, named using the release date of
-// the radar in the format YYYY-MM-DD, containing a series of markdown files.
+// A radar version is a separate directory, named either
+//
+//  - "preview": to indicate it is a preview of the next version of the radar or
+//  - the release date of the radar in the format YYYY-MM-DD
+//
+// where each of the directories containing a series of markdown files.
 // Each markdown file should be named as a lowercase string that defines the
 // id string of the blip, where spaces are replaced by a dash ("-"). This id
 // is to form the trailing part of the URL describing the blip, e.g. a file named
@@ -23,18 +28,26 @@ const BLIP_FILE_EXT = '.md';
 //   - title: A string title for the blip, can contain spaces
 //   - quadrant: A string describing the quadrant (see config.ts for options)
 //   - ring: A string describing the ring (see config.ts for options)
-//
+
 
 // Given a directory, find the radar directories and assign them versions
 export function discoverRadars(radarRoot: string): { dirpath: string; version: string; }[] {
-  // Final list is sorted with earliest first
-  const radarDirnames = readdirSync(radarRoot, { withFileTypes: true })
-    .filter((dirent) => dirent.isDirectory());
-  radarDirnames.sort((a, b) => new Date(a.name).valueOf() - new Date(b.name).valueOf());
+  // Final list is sorted with earliest dated folder first and if it exists the preview
 
-  return radarDirnames.map((dirent, index) => {
+  // Deal with dated ones first
+  const datedRadarDirnames = readdirSync(radarRoot, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory() && dirent.name != PreviewVersionId);
+  datedRadarDirnames.sort((a, b) => new Date(a.name).valueOf() - new Date(b.name).valueOf());
+
+  let versionRadarDirnames = datedRadarDirnames.map((dirent, index) => {
     return { dirpath: join(dirent.path, dirent.name), version: (index + 1).toString(), }
   });
+
+  const previewPath = join(radarRoot, PreviewVersionId);
+  if (existsSync(previewPath)) {
+    versionRadarDirnames.push({ dirpath: previewPath, version: PreviewVersionId })
+  }
+  return versionRadarDirnames;
 }
 
 // Load the blips from a given directory into the table, merging any that

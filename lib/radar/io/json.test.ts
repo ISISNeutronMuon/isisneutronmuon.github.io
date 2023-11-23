@@ -52,14 +52,14 @@ describe('jsonToRadar', () => {
 });
 
 test('radarToJSON', () => {
-  const version = "2", dateAsString = "2023-11-06";
-  const radar = new Radar(version, dateAsString, fakeBlipTable(2));
+  const version = "2", date = new Date("2023-11-06");
+  const radar = new Radar(version, date, fakeBlipTable(2));
 
   const jsonString = radarToJSON(radar);
 
   const jsonObject = JSON.parse(jsonString);
   expect(jsonObject.version).toBe(version);
-  expect(jsonObject.releaseDate).toEqual(new Date(dateAsString).toISOString());
+  expect(jsonObject.releaseDate).toEqual(date.toISOString());
   expect(jsonObject.blips[0]["id"]).toEqual(1);
   expect(jsonObject.blips[1]["id"]).toEqual(2);
 });

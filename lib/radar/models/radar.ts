@@ -1,13 +1,15 @@
 import { BlipTable } from "./blipTable"
 
+export const PreviewVersionId = 'preview'
+
 export class Radar {
   _version: string;
   _releaseDate: Date;
   _blips: BlipTable;
 
-  constructor(version: string, releaseDate: string, blips: BlipTable) {
+  constructor(version: string, releaseDate: Date, blips: BlipTable) {
     this._version = version;
-    this._releaseDate = new Date(releaseDate);
+    this._releaseDate = releaseDate;
     this._blips = blips;
   }
 
@@ -23,4 +25,7 @@ export class Radar {
     return this._blips;
   }
 
+  isPreview(): boolean {
+    return this._version == PreviewVersionId;
+  }
 };

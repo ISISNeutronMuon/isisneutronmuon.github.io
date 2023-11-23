@@ -25,7 +25,7 @@ export function radarToJSON(radar: Radar): string {
 }
 
 export function jsonToRadar(jsonObject: any): Radar {
-  return new Radar(jsonObject.version, jsonObject.releaseDate, _fromObjectList(jsonObject.blips));
+  return new Radar(jsonObject.version, new Date(jsonObject.releaseDate), _fromObjectList(jsonObject.blips));
 }
 
 

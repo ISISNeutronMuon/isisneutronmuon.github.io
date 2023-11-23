@@ -63,7 +63,11 @@ export default function TechnologyRadar() {
 }
 
 function pageHeading(radar: Radar) {
+  if (radar.isPreview()) {
+    return <Heading level={1}>Technology Radar (<span className="italic underline">Preview</span>)</Heading>
+  } else {
     return <Heading level={1}>Technology Radar (<span className="italic">v{radar.version}</span>)</Heading>
+  }
 }
 
 // Take a value on the scale defined by d3 and calculate the pixel

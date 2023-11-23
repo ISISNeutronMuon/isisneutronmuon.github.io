@@ -5,14 +5,12 @@
 import { radarToJSON } from "@/lib/radar/io/json";
 import { discoverRadars, loadBlipsIntoTable } from "@/lib/radar/io/markdown";
 import { BlipTable } from "@/lib/radar/models/blipTable";
-import { Radar } from "@/lib/radar/models/radar";
+import { PreviewVersionId, Radar } from "@/lib/radar/models/radar";
 import { writeFileSync } from "fs";
 import { basename, join } from "path";
 
 const radarMarkdownDir = join(process.cwd(), 'data', 'radar');
 const radarJsonPath = join(process.cwd(), 'public', 'radar.json');
-
-const releaseDate = (dirpath: string) => basename(dirpath);
 
 // Takes the content defined as markdown files and converts it to a
 // single JSON file for the client-side technology-radar to load
@@ -30,6 +28,15 @@ function loadMarkdownAndConvertToJSON() {
     return radarToJSON(new Radar(latestVersion.version, releaseDate(latestVersion.dirpath), table));
   } else {
     return undefined;
+  }
+}
+
+function releaseDate(dirpath: string) {
+  const dirName = basename(dirpath);
+  if (dirName == PreviewVersionId) {
+    return new Date();
+  } else {
+    return new Date(dirName);
   }
 }
 
