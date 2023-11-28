@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "createRadarJson": "tsx ./scripts/createRadarJson.ts",
+    "createRadarJson": "bun ./scripts/createRadarJson.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -35,10 +35,12 @@
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "rehype-sanitize": "^6.0.0",
+    "rehype-stringify": "^10.0.0",
     "remark": "^15.0.1",
     "remark-frontmatter": "^4.0.1",
-    "remark-html": "^15.0.2",
-    "remark-mdx-frontmatter": "^3.0.0",
+    "remark-mdx-frontmatter": "^4.0.0",
+    "remark-rehype": "^11.0.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2"
   },
@@ -47,13 +49,13 @@
     "@testing-library/react": "^14.0.0",
     "@types/d3": "^7.4.1",
     "@types/jest": "^29.5.5",
+    "bun-types": "^1.0.14",
     "cypress": "^13.3.2",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "serve": "^14.2.1",
     "start-server-and-test": "^2.0.1",
     "ts-jest": "^29.1.1",
-    "tsx": "^3.14.0",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"
   }
 }
