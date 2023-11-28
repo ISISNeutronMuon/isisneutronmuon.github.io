@@ -37,6 +37,8 @@ import {
 import Link from 'next/link';
 import { DebouncedInput } from '@/components/debounced-input';
 
+// Constant data hoisted here to avoid a needless memo
+const columnHelper = createColumnHelper<Blip>();
 const radar = jsonToRadar(radarJson);
 
 declare module '@tanstack/table-core' {
@@ -66,11 +68,11 @@ const equalityFilter: FilterFn<any> = (row, columnId, value) => {
 }
 
 export default function BlipTable() {
+  const data = CreateDataMemo();
   const columns = CreateColumnDefs();
-  const data = CreateDataMemo()
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  )
+  );
   const table = useReactTable({
     columns,
     data,
@@ -88,10 +90,10 @@ export default function BlipTable() {
     getSortedRowModel: getSortedRowModel()
   });
   // Sort by left-hand column
-  // Users cannot currently resort anything
+  // Users cannot currently re-sort anything intentionally
   useEffect(() => {
     table.setSorting([{ id: columns[0].id as string, desc: false }]);
-  }, [table]);
+  }, [columns, table]);
 
   return (
     <div className="prose min-w-[100%]">
@@ -161,13 +163,12 @@ function CreateDataMemo() {
 
 // Create the columns for the table
 function CreateColumnDefs() {
-  const columnHelper = createColumnHelper<Blip>();
-
   const columns = React.useMemo(
     () => [
       columnHelper.accessor(
-        "id",
+        "id", // field name on the data object
         {
+          id: "id", // identifier for the column (required for sorting)
           header: "Id",
           filterFn: equalityFilter
         }
@@ -175,6 +176,7 @@ function CreateColumnDefs() {
       columnHelper.accessor(
         "title",
         {
+          id: "title",
           header: 'Title',
           cell: ({ row, getValue }) => (
             <span>
@@ -189,6 +191,7 @@ function CreateColumnDefs() {
       columnHelper.accessor(
         "quadrantId",
         {
+          id: "quadrantId",
           header: "Quadrant",
           cell: ({ getValue }) => (
             <span>
@@ -203,13 +206,13 @@ function CreateColumnDefs() {
       columnHelper.accessor(
         "ring",
         {
+          id: "ring",
           header: "Ring",
           cell: ({ getValue }) => <span>{getValue().toUpperCase()}</span>,
           filterFn: fuzzyFilter
         }
       ),
-    ],
-    [columnHelper]
+    ], []
   );
   return columns;
 }

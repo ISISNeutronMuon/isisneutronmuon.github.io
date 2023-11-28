@@ -1,6 +1,8 @@
 import matter from 'gray-matter';
 import remarkParse from 'remark-parse';
-import remarkHtml from 'remark-html';
+import remarkRehype from 'remark-rehype'
+import rehypeSanitize from 'rehype-sanitize'
+import rehypeStringify from 'rehype-stringify'
 import { unified } from 'unified';
 
 // Take a string and process it as if it were markdown with frontmatter formatted
@@ -13,6 +15,9 @@ export function readMarkdownWithFrontmatter(input: string): { frontmatter: { [ke
 }
 
 export function markdownToHtml(markdown: string) {
-  const result = unified().use(remarkParse).use(remarkHtml).processSync(markdown)
+  const result = unified()
+    .use(remarkParse)
+    .use(remarkRehype).use(rehypeSanitize).use(rehypeStringify)
+    .processSync(markdown)
   return result.toString()
 }

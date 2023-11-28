@@ -16,17 +16,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup node
-        uses: actions/setup-node@v3
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version-file: '.nvmrc'
-          cache: npm
-          cache-dependency-path: package-lock.json
+          bun-version: 'latest'
 
       - name: Build static site
         run: |
-          npm ci
-          npm run build
+          bun install
+          bun run build
 
       - name: Upload build folder as pages artifact
         uses: actions/upload-pages-artifact@v1
