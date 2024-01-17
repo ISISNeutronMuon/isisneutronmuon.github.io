@@ -5,7 +5,7 @@ import { readMarkdownWithFrontmatter } from "@/lib/markdown";
 import { BlipTable } from "../models/blipTable";
 import { PreviewVersionId } from "../models/radar"
 
-const BLIP_FILE_EXT = '.md';
+const blipFileExt = '.md';
 
 // A radar version is a separate directory, named either
 //
@@ -63,7 +63,7 @@ export function loadBlipsIntoTable(table: BlipTable, dirpath: string): BlipTable
 
 // Given a path to a markdown file, load the content as a Blip
 export function loadBlipIntoTable(table: BlipTable, filepath: string) {
-  let toBlipRef = (filename: string) => basename(filename, BLIP_FILE_EXT);
+  let toBlipRef = (filename: string) => basename(filename, blipFileExt);
 
   const { frontmatter, body } = readMarkdownWithFrontmatter(readFileSync(filepath, 'utf8'));
   table.appendBlip(toBlipRef(filepath), frontmatter.title, frontmatter.quadrant, frontmatter.ring, frontmatter.description, body);
