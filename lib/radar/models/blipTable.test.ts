@@ -14,7 +14,8 @@ describe('BlipTable construction tests', () => {
         title: "title 1",
         quadrantId: "quadrant-1",
         ring: "ring-1",
-        description: "My description 1"
+        description: "My description 1",
+        comments: "My comments 1"
       },
       {
         id: 2,
@@ -22,7 +23,8 @@ describe('BlipTable construction tests', () => {
         title: "title 2",
         quadrantId: "quadrant-2",
         ring: "ring-2",
-        description: "My description 2"
+        description: "My description 2",
+        comments: "My comments 2"
       }
     ]
 
@@ -36,7 +38,7 @@ describe('BlipTable addBlip', () => {
   test("addBlip increases size by 1", () => {
     const numEntriesBefore = 1;
     const table = fakeBlipTable(numEntriesBefore);
-    table.appendBlip("ref-name", "blipTitle", "quadrant", "ring", "desc");
+    table.appendBlip("ref-name", "blipTitle", "quadrant", "ring", "desc", "comments");
     expect(table.size).toBe(numEntriesBefore + 1);
   })
   test("addBlip assigns unique id to new blip", () => {
@@ -54,6 +56,7 @@ describe('BlipTable addBlip', () => {
     expect(blip?.quadrantId).toBe("quadrant-1");
     expect(blip?.ring).toBe("ring-1");
     expect(blip?.description).toBe("descr");
+    expect(blip?.comments).toBe("comments");
   })
 });
 

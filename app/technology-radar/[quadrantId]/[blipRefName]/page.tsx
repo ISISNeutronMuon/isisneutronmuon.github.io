@@ -12,6 +12,7 @@ import {
 
 import radarJSON from '@/public/radar.json';
 import { jsonToRadar } from "@/lib/radar/io/json";
+import FormattedDate from "@/components/formatted-date";
 
 const radar = jsonToRadar(radarJSON);
 
@@ -35,6 +36,7 @@ export default async function RadarQuadrant({ params }: Params) {
   const quadrantConf = quadrantConfig(blip.quadrantId) as QuadrantConfig;
   const ringConf = ringConfig(blip.ring) as RingConfig;
   const description = markdownToHtml(blip.description || '')
+  const comments = markdownToHtml(blip.comments || '')
 
   return (
     <>
@@ -43,8 +45,12 @@ export default async function RadarQuadrant({ params }: Params) {
         <Badge title={quadrantConf.title} colour={quadrantConf.colour} href={technologyRadarQuadrantUrl(blip)} />
       </div>
       <p className="inline text-lg">Ring: </p><Badge className="inline" title={ringConf.title} colour={ringConf.badgeColour} />
-      <div className="prose mt-8">
+      <div className="prose mt-4">
         <div dangerouslySetInnerHTML={{ __html: description.toString() }} />
+      </div>
+      <Heading level={2}>{`v${radar.version}`} - <FormattedDate date={radar.releaseDate} /></Heading>
+      <div className="prose">
+        <div dangerouslySetInnerHTML={{ __html: comments.toString() }} />
       </div>
     </>
   )

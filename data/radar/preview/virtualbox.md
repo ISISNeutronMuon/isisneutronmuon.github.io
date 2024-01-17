@@ -1,13 +1,13 @@
 ---
-title: VirtualBox
+title: "VirtualBox"
 quadrant: platforms
 ring: adopt
+description: |
+  [VirtualBox](https://www.virtualbox.org/) is a desktop virtualisation
+  technology for running guest operating systems from within a host. [Guest
+  additions](https://www.virtualbox.org/manual/ch04.html) are required to be
+  installed inside the guest VM to enable certain pieces of functionality.
 ---
-
-[VirtualBox](https://www.virtualbox.org/) is a desktop virtualisation
-technology for running guest operating systems from within a host. [Guest
-additions](https://www.virtualbox.org/manual/ch04.html) are required to be
-installed inside the guest VM to enable certain pieces of functionality.
 
 The core product and guest additions are free to use and licensed under the
 GPLv3. An extension pack, distinct from the guest additions, is licensed

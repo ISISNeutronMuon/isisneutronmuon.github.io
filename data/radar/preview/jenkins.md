@@ -1,12 +1,12 @@
 ---
-title: Jenkins
+title: "Jenkins"
 quadrant: tools
 ring: adopt
+description: |
+  [Jenkins](https://jenkins.io) is an automation server for running tasks.
+  Its plugin system allows for extensions supporting CI/CD as well as implementing
+  pipelines as code and configuring Jenkins itself through configuration files.
 ---
-
-[Jenkins](https://jenkins.io) is an automation server for running tasks.
-Its plugin system allows for extensions supporting CI/CD as well as implementing
-pipelines as code and configuring Jenkins itself through configuration files.
 
 Jenkins is in widespread use across ICD for both CI/CD tasks.
 

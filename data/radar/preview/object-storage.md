@@ -2,12 +2,12 @@
 title: "Object Storage"
 quadrant: platforms
 ring: adopt
+description: |
+  [Object Storage](https://en.wikipedia.org/wiki/Object_storage) is a data storage
+  technique that manages data as blobs or objects rather than as a hiearchy or a block.
+  The API presented by object-stores are not concerned with the physical location
+  of the data allowing them to store vast amounts of unstructured data.
 ---
-
-[Object Storage](https://en.wikipedia.org/wiki/Object_storage) is a data storage
-technique that manages data as blobs or objects rather than as a hiearchy or a block.
-The API presented by object-stores are not concerned with the physical location
-of the data allowing them to store vast amounts of unstructured data.
 
 Most public cloud offerings also offer some form of object storage: AWS S3,
 Azure Blob and Google Cloud Storage. The STFC cloud also offers an object store
