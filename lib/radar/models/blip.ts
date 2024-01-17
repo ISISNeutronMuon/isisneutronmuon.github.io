@@ -7,16 +7,18 @@ export class Blip {
   title: string;
   quadrantId: string;
   ring: string;
-  description: string;
+  description: string; // Description of blip
+  comments: string; // Comments on the current blip
 
   constructor(id: number, refName: string, title: string, quadrantId: string,
-    ring: string, description: string) {
+    ring: string, description: string, comments: string) {
     this.id = id;
     this.refName = refName;
     this.title = title;
     this.quadrantId = quadrantId;
     this.ring = ring;
     this.description = description;
+    this.comments = comments;
 
     this.throwIfObjectInvalid();
   }
@@ -28,8 +30,10 @@ export class Blip {
     quadrantId: string;
     ring: string;
     description: string;
+    comments: string;
   }) {
-    return new Blip(props.id, props.refName, props.title, props.quadrantId, props.ring, props.description);
+    return new Blip(props.id, props.refName, props.title, props.quadrantId, props.ring,
+      props.description, props.comments);
   }
 
   // Return a flat object representation of this Blip
@@ -40,6 +44,7 @@ export class Blip {
     quadrantId: string;
     ring: string;
     description: string;
+    comments: string;
   } {
     return {
       id: this.id,
@@ -47,28 +52,23 @@ export class Blip {
       title: this.title,
       quadrantId: this.quadrantId,
       ring: this.ring,
-      description: this.description
+      description: this.description,
+      comments: this.comments
     }
   }
 
   private throwIfObjectInvalid() {
-    let throwIfFieldEmpty = (fieldName: string) => {
-      let attr = undefined;
-      try {
-        // @ts-ignore Access via name lookup not defined but it's internal so fine
-        attr = this[fieldName];
-      } catch (err: any) {
-        throw Error(`Unexpected field name '${fieldName}'`);
+    let throwIfFieldEmpty = (field: string) => {
+      if (field.length == 0) {
+        throw Error(`A blip must have a non-empty ${field}`);
       }
-      if (attr.length == 0) {
-        throw Error(`A blip must have a non-empty ${fieldName}`);
-      }
-    };
+    }
 
-    throwIfFieldEmpty("refName");
-    throwIfFieldEmpty("title");
-    throwIfFieldEmpty("quadrantId");
-    throwIfFieldEmpty("ring");
-    throwIfFieldEmpty("description");
+    throwIfFieldEmpty(this.refName);
+    throwIfFieldEmpty(this.title);
+    throwIfFieldEmpty(this.quadrantId);
+    throwIfFieldEmpty(this.ring);
+    throwIfFieldEmpty(this.description);
+    throwIfFieldEmpty(this.comments);
   }
 };

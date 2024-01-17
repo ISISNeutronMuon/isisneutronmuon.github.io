@@ -15,7 +15,7 @@ export function fakeBlipTable(numEntries: number) {
   let blipIndex = 0, quadrantIndex = 0, ringIndex = 0;
   while (blipIndex < numEntries) {
     table.appendBlip(`blip-ref-${blipIndex + 1}`, `blipTitle-${blipIndex + 1}`,
-      `quadrant-${quadrantIndex + 1}`, `ring-${ringIndex + 1}`, "descr");
+      `quadrant-${quadrantIndex + 1}`, `ring-${ringIndex + 1}`, "descr", "comments");
     blipIndex += 1;
     quadrantIndex += 1;
     ringIndex += 1;

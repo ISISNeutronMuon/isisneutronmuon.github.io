@@ -66,5 +66,5 @@ export function loadBlipIntoTable(table: BlipTable, filepath: string) {
   let toBlipRef = (filename: string) => basename(filename, BLIP_FILE_EXT);
 
   const { frontmatter, body } = readMarkdownWithFrontmatter(readFileSync(filepath, 'utf8'));
-  table.appendBlip(toBlipRef(filepath), frontmatter.title, frontmatter.quadrant, frontmatter.ring, body);
+  table.appendBlip(toBlipRef(filepath), frontmatter.title, frontmatter.quadrant, frontmatter.ring, frontmatter.description, body);
 }

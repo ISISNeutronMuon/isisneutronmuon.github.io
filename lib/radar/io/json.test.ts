@@ -20,7 +20,8 @@ const jsonTestStringWithBlips = `
       "title": "title 1",
       "quadrantId": "quadrant-1",
       "ring": "ring-1",
-      "description": "My description 1"
+      "description": "My description 1",
+      "comments": "My comments 1"
     },
     {
       "id": 2,
@@ -28,7 +29,8 @@ const jsonTestStringWithBlips = `
       "title": "title 2",
       "quadrantId": "quadrant-2",
       "ring": "ring-2",
-      "description": "My description 2"
+      "description": "My description 2",
+      "comments": "My comments 2"
     }
   ]
 }
