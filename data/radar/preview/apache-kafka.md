@@ -2,17 +2,17 @@
 title: "Apache Kafka"
 quadrant: platforms
 ring: adopt
+description: |
+  [Apache Kafka](https://kafka.apache.org/) is an open-source distributed event
+  streaming platform boasting:
+
+  - High throughput
+  - High availability
+  - Scalable
+
+  It is widely used across many industries to support data pipelines, streaming
+  analytics and more.
 ---
-
-[Apache Kafka](https://kafka.apache.org/) is an open-source distributed event
-streaming platform boasting:
-
-- High throughput
-- High availability
-- Scalable
-
-It is widely used across many industries to support data pipelines, streaming
-analytics and more.
 
 As part of the ESS-in-kind work ISIS developed a data streaming architecture
 for experimental data based on Kafka.

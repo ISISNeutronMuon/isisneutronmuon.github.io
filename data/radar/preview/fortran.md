@@ -1,12 +1,12 @@
 ---
-title: Fortran
+title: "Fortran"
 quadrant: languages-and-frameworks
 ring: hold
+description: |
+  [Fortran](https://fortran-lang.org/) is a statically-typed, compiled programming
+  language generally associated with high-performance scientific computing
+  libraries.
 ---
-
-[Fortran](https://fortran-lang.org/) is a statically-typed, compiled programming
-language generally associated with high-performance scientific computing
-libraries.
 
 Fortran continues to be developed as a language but in many circumstances it has
 been replaced by C++ or more recently Rust or Python with compiled internal

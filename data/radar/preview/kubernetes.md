@@ -1,11 +1,11 @@
 ---
-title: Kubernetes
+title: "Kubernetes"
 quadrant: platforms
 ring: adopt
+description: |
+  [Kubernetes](https://kubernetes.io/), also known as K8s, is an open-source system
+  for automating deployment, scaling, and management of containerized applications.
 ---
-
-[Kubernetes](https://kubernetes.io/), also known as K8s, is an open-source system
-for automating deployment, scaling, and management of containerized applications.
 
 Kubernetes is cloud-agnostic and can run in any of the public clouds but also
 within the STFC cloud.

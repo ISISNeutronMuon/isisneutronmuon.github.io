@@ -1,13 +1,13 @@
 ---
-title: VMWare
+title: "VMWare"
 quadrant: platforms
 ring: adopt
+description: |
+  [VMWare](https://www.vmware.com/uk.html) is a virtualisation platform for both
+  desktop and server hardware.
+  [VMWare Workstation Player](https://www.vmware.com/uk/products/workstation-player.html)
+  is a free version of the desktop software that does not offer any kind of support.
 ---
-
-[VMWare](https://www.vmware.com/uk.html) is a virtualisation platform for both
-desktop and server hardware.
-[VMWare Workstation Player](https://www.vmware.com/uk/products/workstation-player.html)
-is a free version of the desktop software that does not offer any kind of support.
 
 It is adopted for virtualisation on server hardware but less so for desktop
 virtualisation where Virtualbox is preferred. While desktop virtualisation is

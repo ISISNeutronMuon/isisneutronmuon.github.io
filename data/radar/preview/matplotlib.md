@@ -2,10 +2,10 @@
 title: "Matplotlib"
 quadrant: languages-and-frameworks
 ring: adopt
+description: |
+  [Matplotlib](https://matplotlib.org/) is a library for static, animated and
+  interactive visualizations in Python.
 ---
-
-[Matplotlib](https://matplotlib.org/) is a library for static, animated and
-interactive visualizations in Python.
 
 It has [two major styles](https://matplotlib.org/stable/users/explain/figure/api_interfaces.html#api-interfaces)
 of using the library:

@@ -2,12 +2,12 @@
 title: "C++"
 quadrant: languages-and-frameworks
 ring: adopt
+description: |
+  [C++](https://isocpp.org/) is a compiled, statically-typed, general-purpose
+  systems programming language. Traditionally used when runtime performance is
+  critical, however difficulties with writing memory-safe code have seen competitors
+  such as Rust gaining traction in this space.
 ---
-
-[C++](https://isocpp.org/) is a compiled, statically-typed, general-purpose
-systems programming language. Traditionally used when runtime performance is
-critical, however difficulties with writing memory-safe code have seen competitors
-such as Rust gaining traction in this space.
 
 It is encouraged that projects adopt the latest version of the standard supported
 by the compilers that are available.

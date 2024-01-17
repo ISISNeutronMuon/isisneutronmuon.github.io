@@ -1,14 +1,15 @@
 ---
-title: Python
+title: "Python"
 quadrant: languages-and-frameworks
 ring: adopt
----
+description: |
+  [Python](https://www.python.org) is a general-purpose interpreted programming
+  language. It has an emphasis on readability and is considered an easier language
+  to learning programming concepts as the code can be executed directly without
+  a compilation step. It regularly features in the top 5 programming languages
+  used by developers around the world.
 
-[Python](https://www.python.org) is a general-purpose interpreted programming
-language. It has an emphasis on readability and is considered an easier language
-to learning programming concepts as the code can be executed directly without
-a compilation step. It regularly features in the top 5 programming languages
-used by developers around the world.
+---
 
 It is ubiquitous within the scientific computing arena where performance is also
 a critical factor. Many libraries have been written in system languages wrapped

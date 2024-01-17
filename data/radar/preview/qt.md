@@ -2,11 +2,12 @@
 title: "Qt"
 quadrant: languages-and-frameworks
 ring: adopt
----
+description: |
+  [Qt](https://doc.qt.io/) is a cross-platform, C++ application framework primarily
+  used for writing cross-platform graphical user interfaces, also supporting
+  embedded devices.
 
-[Qt](https://doc.qt.io/) is a cross-platform, C++ application framework primarily
-used for writing cross-platform graphical user interfaces, also supporting
-embedded devices.
+---
 
 Qt 6 is the latest major version and it is recommended that this be adopted if
 possible but note that Qt 6 requires a relatively modern Linux distribution,

@@ -2,10 +2,10 @@
 title: "Documentation Testing"
 quadrant: techniques
 ring: adopt
+description: |
+  Documentation testing is a general term for automatically verifying
+  example code where it appears in library documentation.
 ---
-
-Documentation testing is a general term for automatically verifying
-example code where it appears in library documentation.
 
 It is particularly strongly used within the Python community where the
 [documentation tooling](https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html)
