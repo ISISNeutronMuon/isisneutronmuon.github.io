@@ -40,7 +40,7 @@ export function discoverRadars(radarRoot: string): { dirpath: string; version: s
   datedRadarDirnames.sort((a, b) => new Date(a.name).valueOf() - new Date(b.name).valueOf());
 
   let versionRadarDirnames = datedRadarDirnames.map((dirent, index) => {
-    return { dirpath: join(dirent.path, dirent.name), version: (index + 1).toString(), }
+    return { dirpath: join(radarRoot, dirent.name), version: (index + 1).toString(), }
   });
 
   const previewPath = join(radarRoot, PreviewVersionId);
