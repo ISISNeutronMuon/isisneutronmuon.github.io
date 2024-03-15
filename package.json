@@ -32,7 +32,7 @@
     "eslint-config-next": "13.4.19",
     "gray-matter": "^4.0.3",
     "next": "13.5.1",
-    "postcss": "8.4.29",
+    "postcss": "8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "rehype-sanitize": "^6.0.0",
