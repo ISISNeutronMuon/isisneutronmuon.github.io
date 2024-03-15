@@ -19,7 +19,7 @@ static set of pages using Next.js's support for
 The result requires only a standard webserver to serve the content and this is deployed to GitHub
 pages using a [Github actions](./.github/workflows/deploy-ghpages.yml) workflow.
 
-## Set Up
+## Prerequisites
 
 ### I don't have Bun installed
 
@@ -67,3 +67,9 @@ These pages can be served with any standard webserver such as `Nginx` or
 ```bash
 serve ./dist
 ```
+
+## Adding/updating a software product
+
+The software products listed on the Home page and Releases page are defined by
+configuration files in [data/products](./data/products). Edit and commit these
+files to add or change the information on these pages.
