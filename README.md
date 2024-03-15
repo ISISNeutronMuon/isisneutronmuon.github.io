@@ -1,7 +1,7 @@
 # isisneutronmuon.github.io
 
 The source for the ISIS Neutron and Muon GitHub pages site.
-The live version can be viewed at <https://martyngigg.github.io/isisneutronmuon-nextjs.github.io>.
+The live version can be viewed at <https://isisneutronmuon.github.io/>.
 
 It is a [Next.js](https://nextjs.org/) project using:
 
@@ -16,9 +16,10 @@ server to render the content.
 The [production version](#building-the-production-version) is compiled to a
 static set of pages using Next.js's support for
 [static exports](https://nextjs.org/docs/app/building-your-application/deploying/static-exports).
-The result requires only a standard webserver to server the content.
+The result requires only a standard webserver to serve the content and this is deployed to GitHub
+pages using a [Github actions](./.github/workflows/deploy-ghpages.yml) workflow.
 
-## Set Up
+## Prerequisites
 
 ### I don't have Bun installed
 
@@ -66,3 +67,9 @@ These pages can be served with any standard webserver such as `Nginx` or
 ```bash
 serve ./dist
 ```
+
+## Adding/updating a software product
+
+The software products listed on the Home page and Releases page are defined by
+configuration files in [data/products](./data/products). Edit and commit these
+files to add or change the information on these pages.
