@@ -43,6 +43,7 @@ export default async function Releases() {
       <p>Deploy Icon by SBTS from <a href="https://thenounproject.com/browse/icons/term/deploy/" target="_blank"
         title="Deploy Icons">Noun Project</a> (CC BY 3.0)
       </p>
+      <p className="mt-1">Page updated: <FormattedDate date={new Date(Date.now())} /></p>
     </div>
   </>);
 }
