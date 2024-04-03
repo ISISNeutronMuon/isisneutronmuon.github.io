@@ -28,6 +28,8 @@ jobs:
         run: |
           bun install
           bun run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload build folder as pages artifact
         uses: actions/upload-pages-artifact@v3
