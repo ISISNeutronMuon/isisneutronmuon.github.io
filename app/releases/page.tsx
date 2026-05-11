@@ -15,7 +15,7 @@ let releasesJSX = async () => {
   return releases.map((releaseItem) => {
     const productName = releaseItem.productName;
     const product = products[productName];
-    return <div key={productName} className="prose flex flex-col flex-wrap justify-around text-center border-dotted border-[1px] mx-[1px]">
+    return <div key={productName} className="prose flex flex-col flex-wrap justify-around text-center border-dotted border mx-px">
       <Link href={releaseItem.url}>
         <div className="relative text-center h-[175px]">
           <img className="absolute inset-0 m-auto h-auto max-w-[175px] max-h-[150px]"
