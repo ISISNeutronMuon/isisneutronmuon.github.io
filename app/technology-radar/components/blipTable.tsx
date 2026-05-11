@@ -96,7 +96,7 @@ export default function BlipTable() {
   }, [columns, table]);
 
   return (
-    <div className="prose min-w-[100%]">
+    <div className="prose min-w-full">
       <table className="w-[90%] mx-auto">
         {TableHead(table)}
         {TableBody(table)}
@@ -233,7 +233,7 @@ function Filter({
         value={(columnFilterValue ?? '') as string}
         onChange={value => column.setFilterValue(value)}
         placeholder={`Search... ` + (showUniqueValueCount ? `(${column.getFacetedUniqueValues().size})` : '')}
-        className="w-36 border shadow rounded"
+        className="w-36 border shadow-sm rounded-sm"
       />
       <div className="h-1" />
     </>

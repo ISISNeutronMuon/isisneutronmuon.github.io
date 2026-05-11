@@ -43,7 +43,7 @@ export default async function RadarQuadrant({ params }: { params: Params }) {
             <Badge title={ring.title} colour={ring.badgeColour} />
             <ul>
               {ringBlips.map((blip) =>
-                <div key={`ring-blip-title-${blip.id}`} className="prose px-2 my-6 border-b-[1px] border-slate-400">
+                <div key={`ring-blip-title-${blip.id}`} className="prose px-2 my-6 border-b border-slate-400">
                   <Link href={technologyRadarBlipUrl(blip)}>
                     <li>{blip.title}</li>
                   </Link>

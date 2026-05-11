@@ -1,6 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --color-blue-link: rgb(9, 105, 218);
+}
 
 /* Override links from prose */
 .prose :where(a) {

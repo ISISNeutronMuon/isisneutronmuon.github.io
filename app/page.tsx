@@ -35,7 +35,7 @@ async function productsJSX() {
     <ul>
       {
         Object.values(products).map((product) => (
-          <li key={product.name}><Link href={product.url || ''}>{product.name} </Link>
+          <li key={product.name}><Link href={product.url || ''}>{product.name}</Link>&nbsp;
             <span dangerouslySetInnerHTML={{ __html: descriptionAsHtml(product) }}></span>
           </li>
         ))

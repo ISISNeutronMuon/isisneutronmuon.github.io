@@ -1,8 +1,8 @@
-import './globals.css'
 import type { Metadata } from 'next'
 import Container from '@/components/container'
 import TopNavigation from '@/components/top-navigation'
 import Footer from '@/components/footer'
+import '@/app/globals.css'
 
 import { siteTitle, siteDescription } from '@/lib/consts'
 
