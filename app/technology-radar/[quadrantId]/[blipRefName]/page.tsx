@@ -16,12 +16,10 @@ import FormattedDate from "@/components/formatted-date";
 
 const radar = jsonToRadar(radarJSON);
 
-type Params = {
-  params: {
-    quadrantId: string;
-    blipRefName: string;
-  }
-};
+type Params = Promise<{
+  quadrantId: string;
+  blipRefName: string;
+}>;
 
 // Only pages that exist as blips in the existing radar should be generated
 // See https://nextjs.org/docs/app/api-reference/functions/generate-static-params
@@ -31,8 +29,9 @@ export async function generateStaticParams() {
   return radar.blips.map((blip) => ({ quadrantId: blip.quadrantId, blipRefName: blip.refName }));
 }
 
-export default async function RadarQuadrant({ params }: Params) {
-  const blip = radar.blips.getByRef(params.blipRefName) as Blip;
+export default async function RadarQuadrant({ params }: { params: Params }) {
+  const { blipRefName } = await params;
+  const blip = radar.blips.getByRef(blipRefName) as Blip;
   const quadrantConf = quadrantConfig(blip.quadrantId) as QuadrantConfig;
   const ringConf = ringConfig(blip.ring) as RingConfig;
   const description = markdownToHtml(blip.description || '')

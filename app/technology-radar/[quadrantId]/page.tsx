@@ -14,11 +14,10 @@ import { jsonToRadar } from "@/lib/radar/io/json";
 
 const radar = jsonToRadar(radarJSON);
 
-type Params = {
-  params: {
+type Params = Promise<{
     quadrantId: string;
   }
-};
+>;
 
 // Only pages that exist as radar quadrants should be generated
 // See https://nextjs.org/docs/app/api-reference/functions/generate-static-params
@@ -28,10 +27,11 @@ export async function generateStaticParams() {
   return chartConfig.quadrants.map((quadrant) => ({ quadrantId: quadrant.id }));
 }
 
-export default async function RadarQuadrant({ params }: Params) {
+export default async function RadarQuadrant({ params }: { params: Params }) {
   // guaranteed to exist due to generateStaticParams & dynamicParams=false
-  const quadrantConf = quadrantConfig(params.quadrantId) as QuadrantConfig;
-  const quadrantBlips = radar.blips.filterByQuadrant(params.quadrantId);
+  const { quadrantId } = await params;
+  const quadrantConf = quadrantConfig(quadrantId) as QuadrantConfig;
+  const quadrantBlips = radar.blips.filterByQuadrant(quadrantId);
 
   return (
     <>

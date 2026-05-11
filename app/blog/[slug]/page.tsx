@@ -2,11 +2,7 @@ import FormattedDate from "@/components/formatted-date";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import { markdownToHtml } from "@/lib/markdown";
 
-type Params = {
-  params: {
-    slug: string
-  }
-}
+type Params = Promise<{ slug: string }>
 
 // Only pages that exist in _posts should return content, everything else should
 // be a 404
@@ -18,8 +14,9 @@ export async function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }))
 }
 
-export default async function BlogPost({ params }: Params) {
-  const post = getPostBySlug(params.slug)
+export default async function BlogPost({ params }: { params: Params }) {
+  const { slug } = await params
+  const post = getPostBySlug(slug)
   const html = markdownToHtml(post.content || '')
 
   return (

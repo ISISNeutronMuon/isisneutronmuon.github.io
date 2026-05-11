@@ -1,6 +1,6 @@
 import Heading from '@/components/heading'
 
-import MDXContent, { frontmatter } from './about.md'
+import MDXContent, { frontmatter } from './about.mdx'
 
 export default function Page() {
   return (<>
