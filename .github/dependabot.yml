@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: "bun"
+    directories:
+      - "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore(deps): "
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
