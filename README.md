@@ -5,7 +5,6 @@ The live version can be viewed at <https://isisneutronmuon.github.io/>.
 
 It is a [Next.js](https://nextjs.org/) project using:
 
-- [Bun](https://bun.sh/)
 - [Tailwind CSS](https://tailwindcss.com/) and
   [tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin) for styling.
 - [MDX](https://mdxjs.com/) and [remark](https://remark.js.org/) to support Markdown content.
@@ -21,12 +20,12 @@ pages using a [Github actions](./.github/workflows/deploy-ghpages.yml) workflow.
 
 ## Prerequisites
 
-### I don't have Bun installed
+### I don't have Node installed
 
 Visit <https://bun.sh/docs/installation> and install Bun using the appropriate method for your
 operating system.
 
-### I already have Bun installed
+### I already have Node installed
 
 You're ready to go!
 
@@ -36,7 +35,7 @@ Clone this repository locally and change to the directory of the new clone.
 Install the dependencies specified in the `package.json` with:
 
 ```bash
-bun install
+npm install
 ```
 
 ## Running the development version
@@ -44,7 +43,7 @@ bun install
 While developing you should run the development server:
 
 ```bash
-bun run dev
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -57,7 +56,7 @@ The production version is served as a set of static pages that do not require
 a running Node.js server. Build the pages with:
 
 ```bash
-bun run build
+npm run build
 ```
 
 The results appear in a `./dist` subdirectory of the main project.
@@ -65,7 +64,7 @@ These pages can be served with any standard webserver such as `Nginx` or
 `Apache`. Locally they can be checked using Node's own basic webserver:
 
 ```bash
-serve ./dist
+npx serve ./dist
 ```
 
 ## Adding/updating a software product
