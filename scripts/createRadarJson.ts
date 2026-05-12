@@ -9,23 +9,32 @@ import { PreviewVersionId, Radar } from "@/lib/radar/models/radar";
 import { writeFileSync } from "fs";
 import { basename, join } from "path";
 
-const radarMarkdownDir = join(process.cwd(), 'data', 'radar');
-const radarJsonPath = join(process.cwd(), 'public', 'radar.json');
+const radarMarkdownDir = join(process.cwd(), "data", "radar");
+const radarJsonPath = join(process.cwd(), "public", "radar.json");
 
 // Takes the content defined as markdown files and converts it to a
 // single JSON file for the client-side technology-radar to load
 function loadMarkdownAndConvertToJSON() {
   let table = new BlipTable();
-  console.log(`Reading radar directories in '${radarMarkdownDir}'`)
+  console.log(`Reading radar directories in '${radarMarkdownDir}'`);
   const radarVersions = discoverRadars(radarMarkdownDir);
-  console.log(`Found ${radarVersions.length} radar versions`)
+  console.log(`Found ${radarVersions.length} radar versions`);
   if (radarVersions.length > 0) {
     for (const { dirpath } of radarVersions) {
-      console.log(`  Reading ${dirpath}`)
+      console.log(`  Reading ${dirpath}`);
       loadBlipsIntoTable(table, dirpath);
     }
-    const latestVersion = radarVersions.at(-1) as { dirpath: string, version: string };
-    return radarToJSON(new Radar(latestVersion.version, releaseDate(latestVersion.dirpath), table));
+    const latestVersion = radarVersions.at(-1) as {
+      dirpath: string;
+      version: string;
+    };
+    return radarToJSON(
+      new Radar(
+        latestVersion.version,
+        releaseDate(latestVersion.dirpath),
+        table,
+      ),
+    );
   } else {
     return undefined;
   }
@@ -41,16 +50,14 @@ function releaseDate(dirpath: string) {
 }
 
 function writeToJSONFile(jsonString: string) {
-  console.log(`Writing final JSON string to '${radarJsonPath}'`)
+  console.log(`Writing final JSON string to '${radarJsonPath}'`);
   writeFileSync(radarJsonPath, jsonString);
 }
 
 function main() {
   const radarAsJSON = loadMarkdownAndConvertToJSON();
-  if (radarAsJSON)
-    writeToJSONFile(radarAsJSON);
-  else
-    console.log(`${radarJsonPath} not written.`)
+  if (radarAsJSON) writeToJSONFile(radarAsJSON);
+  else console.log(`${radarJsonPath} not written.`);
 }
 
 main();

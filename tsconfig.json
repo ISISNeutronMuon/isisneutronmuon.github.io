@@ -26,7 +26,8 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "types": ["node"]
   },
   // Old "moduleResolution": "Node" option required for Cypress
   // https://github.com/cypress-io/cypress/issues/26308#issuecomment-1663592648
