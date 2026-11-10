@@ -5,18 +5,22 @@
 import React, { useEffect } from 'react';
 
 import {
-  useReactTable,
+  columnFacetingFeature,
+  columnFilteringFeature,
+  columnVisibilityFeature,
+  createColumnHelper,
+  createFacetedRowModel,
+  createFacetedUniqueValues,
+  createFilteredRowModel,
+  createSortedRowModel,
   flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getSortedRowModel,
+  rowSortingFeature,
+  tableFeatures,
+  useTable,
   Column,
   ColumnFiltersState,
   FilterFn,
-  Table,
-  createColumnHelper
+  Table
 } from '@tanstack/react-table';
 
 import {
@@ -38,24 +42,21 @@ import Link from 'next/link';
 import { DebouncedInput } from '@/components/debounced-input';
 
 // Constant data hoisted here to avoid a needless memo
-const columnHelper = createColumnHelper<Blip>();
+const columnHelper = createColumnHelper<typeof features, Blip>();
 const radar = jsonToRadar(radarJson);
 
 declare module '@tanstack/table-core' {
-  interface FilterFns {
-    fuzzy: FilterFn<unknown>
-  }
   interface FilterMeta {
     itemRank: RankingInfo
   }
 }
 
-const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+const fuzzyFilter: FilterFn<any, any> = (row, columnId, value, addMeta) => {
   // Rank the item
   const itemRank = rankItem(row.getValue(columnId), value)
 
   // Store the itemRank info
-  addMeta({
+  addMeta?.({
     itemRank,
   })
 
@@ -63,9 +64,24 @@ const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
   return itemRank.passed
 }
 
-const equalityFilter: FilterFn<any> = (row, columnId, value) => {
+const equalityFilter: FilterFn<any, any> = (row, columnId, value) => {
   return row.getValue(columnId) == value;
 }
+
+// v9 replaces the individual get*RowModel options with a features object
+const features = tableFeatures({
+  columnFilteringFeature,
+  columnFacetingFeature,
+  columnVisibilityFeature,
+  rowSortingFeature,
+  filteredRowModel: createFilteredRowModel(),
+  sortedRowModel: createSortedRowModel(),
+  facetedRowModel: createFacetedRowModel(),
+  facetedUniqueValues: createFacetedUniqueValues(),
+  filterFns: {
+    fuzzy: fuzzyFilter,
+  },
+});
 
 export default function BlipTable() {
   const data = CreateDataMemo();
@@ -73,21 +89,14 @@ export default function BlipTable() {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
-  const table = useReactTable({
+  const table = useTable({
+    features,
     columns,
     data,
-    filterFns: {
-      fuzzy: fuzzyFilter,
-    },
     state: {
       columnFilters,
     },
-    onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getFacetedRowModel: getFacetedRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues(),
-    getSortedRowModel: getSortedRowModel()
+    onColumnFiltersChange: setColumnFilters
   });
   // Sort by left-hand column
   // Users cannot currently re-sort anything intentionally
@@ -105,7 +114,7 @@ export default function BlipTable() {
   )
 }
 
-function TableHead(table: Table<Blip>) {
+function TableHead(table: Table<typeof features, Blip>) {
   return <thead>
     {table.getHeaderGroups().map(headerGroup => (
       <tr key={headerGroup.id}>
@@ -130,7 +139,7 @@ function TableHead(table: Table<Blip>) {
   </thead>;
 }
 
-function TableBody(table: Table<Blip>) {
+function TableBody(table: Table<typeof features, Blip>) {
   return <tbody>
     {table
       .getRowModel()
@@ -164,7 +173,7 @@ function CreateDataMemo() {
 // Create the columns for the table
 function CreateColumnDefs() {
   const columns = React.useMemo(
-    () => [
+    () => columnHelper.columns([
       columnHelper.accessor(
         "id", // field name on the data object
         {
@@ -212,7 +221,7 @@ function CreateColumnDefs() {
           filterFn: fuzzyFilter
         }
       ),
-    ], []
+    ]), []
   );
   return columns;
 }
@@ -222,7 +231,7 @@ function Filter({
   column,
   showUniqueValueCount
 }: {
-  column: Column<any, unknown>
+  column: Column<typeof features, Blip, unknown>
   showUniqueValueCount: boolean
 }) {
   const columnFilterValue = column.getFilterValue() as string;
